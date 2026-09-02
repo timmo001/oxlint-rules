@@ -12,7 +12,7 @@ Oxlint's JavaScript plugin API is alpha. Consumers must keep `oxlint` and
 Install from npm with the package manager already used by the repository:
 
 ```sh
-bun add --dev --exact @timmo001/oxlint-rules oxlint@1.81.0 @oxlint/plugins@1.81.0
+bun add --dev --exact @timmo001/oxlint-rules oxlint @oxlint/plugins
 ```
 
 Extend the generic config:
@@ -94,7 +94,7 @@ git submodule update --init --recursive
 mise run check
 mise run build
 npm pack --dry-run
-bunx jsr@0.14.3 publish --dry-run
+bunx jsr publish --dry-run
 ```
 
 Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its
