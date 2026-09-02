@@ -21,9 +21,9 @@ description: >-
 5. Put generic upstream-independent rules under the appropriate locally owned
    plugin. Never modify `vendor/anti-slop`; propose an upstream contribution
    separately when Dylan Mulroy's plugin should own the behaviour.
-6. Register the rule in its plugin. Verify the matching config discovers it
-   from the plugin's `rules` map, then update the README rule list and behaviour
-   description. Do not add rule names to either skill.
+6. Register the rule in its plugin. Verify the matching config and copy command
+   discover it from the plugin's `rules` map, then update the README rule list
+   and behaviour description. Do not add rule names to either skill.
 7. Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
    `bunx jsr@0.14.3 publish --dry-run` in the central checkout.
 
