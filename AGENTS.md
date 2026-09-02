@@ -5,9 +5,9 @@
 - Keep locally owned rules under `src/` and preserve the `anti-slop`,
   `anti-slop-effect`, and `timmo-effect` namespaces.
 - Use Oxlint's ESTree API and add focused `RuleTester` fixtures for every rule change.
-- Register every rule in its plugin. Package configs and the copy command derive
-  enabled settings from each plugin's `rules` map; keep package exports, copied
-  entry points, and the README rule list in sync.
+- Register every rule in its plugin. Package configs derive enabled settings
+  from each plugin's `rules` map; keep package exports and the README rule list
+  in sync.
 - Keep package, CLI, README, and skill content portable. Do not add personal
   filesystem paths or private configuration.
 - Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
