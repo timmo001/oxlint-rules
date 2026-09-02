@@ -26,10 +26,9 @@ description: >-
    guarded commit and push workflow, committing only the release metadata with
    `Release Oxlint rules <version>`. A request to prepare or plan a release does
    not authorise publication.
-5. Resolve the target only after the push with `git rev-parse HEAD`. Pass that
-   full 40-character SHA to `gh release create <version> --target <full-sha>
---title <version> --generate-notes`. Never pass an abbreviated SHA as
-   `target_commitish`.
+5. Resolve the target only after the push with `git rev-parse HEAD`. Pass the
+   resulting full 40-character SHA as the `--target` value when running
+   `gh release create`. Never pass an abbreviated SHA as `target_commitish`.
 6. Create the release before resolving workflow targets because publication is
    triggered by the `release.published` event. Watch only the release commit's
    exact workflow runs and require both `Publish to npm` and `Publish to JSR` to
