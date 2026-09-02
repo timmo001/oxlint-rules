@@ -10,7 +10,7 @@ const result = await Bun.build({
     "src/generic/index.ts",
     "src/effect/index.ts",
     "src/configs/recommended.ts",
-    "src/configs/effect.ts",
+    "src/configs/recommended-effect.ts",
   ],
   external: ["@oxlint/plugins"],
   format: "esm",

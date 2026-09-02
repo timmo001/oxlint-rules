@@ -8,7 +8,7 @@
     "./generic": "./src/jsr/generic.ts",
     "./effect": "./src/jsr/effect.ts",
     "./configs/recommended": "./src/jsr/recommended.ts",
-    "./configs/effect": "./src/jsr/effect-config.ts"
+    "./configs/recommended-effect": "./src/jsr/recommended-effect.ts"
   },
   "publish": {
     "include": [

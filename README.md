@@ -31,10 +31,10 @@ Effect repositories can use the opt-in config instead:
 
 ```ts
 import { defineConfig } from "oxlint";
-import effect from "@timmo001/oxlint-rules/configs/effect";
+import recommendedEffect from "@timmo001/oxlint-rules/configs/recommended-effect";
 
 export default defineConfig({
-  extends: [effect],
+  extends: [recommendedEffect],
 });
 ```
 

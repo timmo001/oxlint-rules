@@ -3,8 +3,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { afterEach, describe, expect, test } from "bun:test";
 
-import effect from "../configs/effect.ts";
 import recommended from "../configs/recommended.ts";
+import recommendedEffect from "../configs/recommended-effect.ts";
 import { copyRules } from "./copy.ts";
 
 const temporaryDirectories: string[] = [];
@@ -36,7 +36,7 @@ describe("copyRules", () => {
     const output = await new Response(child.stdout).text();
     expect(output).toContain("./tools/oxlint/timmo-rules/effect/index.ts");
     expect(output).toContain("./tools/oxlint/timmo-rules/generic/index.ts");
-    for (const config of [recommended, effect]) {
+    for (const config of [recommended, recommendedEffect]) {
       for (const [rule, severity] of Object.entries(config.rules ?? {})) {
         expect(output).toContain(
           `${JSON.stringify(rule)}: ${JSON.stringify(severity)}`,

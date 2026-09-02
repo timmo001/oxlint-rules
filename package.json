@@ -17,7 +17,7 @@
     "./generic": "./dist/generic/index.js",
     "./effect": "./dist/effect/index.js",
     "./configs/recommended": "./dist/configs/recommended.js",
-    "./configs/effect": "./dist/configs/effect.js"
+    "./configs/recommended-effect": "./dist/configs/recommended-effect.js"
   },
   "files": [
     "dist",

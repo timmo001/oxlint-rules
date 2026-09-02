@@ -24,8 +24,9 @@ description: >-
    and lockfile. Add an exact development dependency through that package
    manager.
 3. Extend `@timmo001/oxlint-rules/configs/recommended`. The config owns plugin
-   registration and recommended severities. Use `/configs/effect` instead only
-   when `effect` is a direct dependency or the user explicitly requests it.
+   registration and recommended severities. Use `/configs/recommended-effect`
+   instead only when `effect` is a direct dependency or the user explicitly
+   requests it.
 4. Keep dependency and config edits visible. Do not delegate them to a script.
 
 ## Copy rules

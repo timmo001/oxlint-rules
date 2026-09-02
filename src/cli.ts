@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { resolve } from "node:path";
 
-import effect from "./configs/effect.ts";
 import recommended from "./configs/recommended.ts";
+import recommendedEffect from "./configs/recommended-effect.ts";
 import { copyRules, DEFAULT_COPY_DESTINATION } from "./install/copy.ts";
 
 function usage() {
@@ -41,7 +41,10 @@ if (command === "--help" || command === "-h") {
       console.log(`  timmo: ${entries.timmo}`);
       console.log(`  timmo-effect: ${entries.timmoEffect}`);
       printRuleSettings("General rule settings:", recommended.rules ?? {});
-      printRuleSettings("Effect rule settings (opt-in):", effect.rules ?? {});
+      printRuleSettings(
+        "Effect rule settings (opt-in):",
+        recommendedEffect.rules ?? {},
+      );
     } catch (error) {
       console.error(error instanceof Error ? error.message : String(error));
       process.exitCode = 1;
