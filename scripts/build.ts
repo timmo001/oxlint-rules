@@ -1,4 +1,4 @@
-import { rm } from "node:fs/promises";
+import { chmod, rm } from "node:fs/promises";
 
 await rm("dist", { force: true, recursive: true });
 
@@ -22,4 +22,6 @@ const result = await Bun.build({
 if (!result.success) {
   for (const log of result.logs) console.error(log);
   process.exitCode = 1;
+} else {
+  await chmod("dist/cli.js", 0o755);
 }
