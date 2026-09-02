@@ -11,7 +11,9 @@
   },
   "publish": {
     "include": [
-      "dist/**/*.js",
+      "dist/upstream/*.js",
+      "dist/effect/index.js",
+      "dist/configs/*.js",
       "src/jsr/**/*.ts",
       "vendor/anti-slop/LICENSE",
       "LICENSE",
