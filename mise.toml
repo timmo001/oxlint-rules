@@ -1,0 +1,48 @@
+min_version = "2025.1.0"
+
+[tools]
+node = "26.8.1"
+bun = "1.4.0"
+
+[tasks.install]
+description = "Install package dependencies"
+run = "bun install"
+
+[tasks.test]
+description = "Run package tests"
+depends = ["install"]
+run = "bun run test"
+
+[tasks.lint]
+description = "Lint package source"
+depends = ["install"]
+run = "bun run lint"
+
+[tasks.typecheck]
+description = "Type-check package source"
+depends = ["install"]
+run = "bun run typecheck"
+
+[tasks."format:check"]
+description = "Check package formatting"
+depends = ["install"]
+run = "bun run format:check"
+
+[tasks.format]
+description = "Format package source and documentation"
+depends = ["install"]
+run = "bun run format"
+
+[tasks."skills:validate"]
+description = "Validate packaged Agent Skills"
+depends = ["install"]
+run = "bun run skills:validate"
+
+[tasks.check]
+description = "Test, lint, type-check, format-check and validate skills"
+depends = ["test", "lint", "typecheck", "format:check", "skills:validate"]
+
+[tasks.build]
+description = "Build portable ESM package entry points"
+depends = ["install"]
+run = "bun run build"

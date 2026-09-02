@@ -1,0 +1,23 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@timmo001/oxlint-rules",
+  "version": "0.1.0",
+  "exports": {
+    "./upstream/anti-slop": "./src/jsr/upstream-anti-slop.ts",
+    "./upstream/effect": "./src/jsr/upstream-effect.ts",
+    "./effect": "./src/jsr/effect.ts",
+    "./configs/recommended": "./src/jsr/recommended.ts",
+    "./configs/effect": "./src/jsr/effect-config.ts"
+  },
+  "publish": {
+    "include": [
+      "dist/**/*.js",
+      "src/jsr/**/*.ts",
+      "vendor/anti-slop/LICENSE",
+      "LICENSE",
+      "README.md",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "exclude": ["!dist"]
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.opencode/references/
+.env
+.env.*
+!.env.example

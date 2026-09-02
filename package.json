@@ -1,0 +1,61 @@
+{
+  "name": "@timmo001/oxlint-rules",
+  "version": "0.1.0",
+  "description": "Shared Oxlint plugins and configs with optional Effect rules.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timmo001/oxlint-rules.git"
+  },
+  "bin": {
+    "oxlint-rules": "./dist/cli.js"
+  },
+  "exports": {
+    "./upstream/anti-slop": "./dist/upstream/anti-slop.js",
+    "./upstream/effect": "./dist/upstream/effect.js",
+    "./effect": "./dist/effect/index.js",
+    "./configs/recommended": "./dist/configs/recommended.js",
+    "./configs/effect": "./dist/configs/effect.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts",
+    "vendor/anti-slop/src",
+    "vendor/anti-slop/LICENSE",
+    "!vendor/anti-slop/src/**/*.test.ts",
+    "skills",
+    "README.md",
+    "THIRD_PARTY_NOTICES.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun run scripts/build.ts",
+    "check": "bun run build && bun run test && bun run lint && bun run typecheck && bun run format:check && bun run skills:validate",
+    "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
+    "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
+    "lint": "oxlint src scripts",
+    "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule",
+    "test": "node --experimental-strip-types src/effect/rules/no-try-catch-in-effect-generators.test.ts && bun test src/install/copy.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@oxlint/plugins": "1.81.0",
+    "oxlint": "1.81.0"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.81.0",
+    "@types/bun": "^1.3.14",
+    "oxlint": "1.81.0",
+    "prettier": "^3.9.5",
+    "skills-ref": "0.1.1",
+    "typescript": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

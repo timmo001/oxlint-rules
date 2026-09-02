@@ -1,0 +1,4 @@
+[submodule "vendor/anti-slop"]
+	path = vendor/anti-slop
+	url = https://github.com/dmmulroy/anti-slop.git
+	branch = main
