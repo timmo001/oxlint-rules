@@ -26,7 +26,10 @@ description: >-
    and behaviour description. Keep skills workflow-only; do not duplicate rule
    or plugin inventories or counts in them.
 7. Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
-   `bunx jsr@0.14.3 publish --dry-run` in the central checkout.
+   `bunx jsr@0.14.3 publish --dry-run --allow-dirty` in the central checkout.
+8. If the user also asks to publish the change, load `release-oxlint-rules` and
+   hand off the release after the rule checks pass. Do not duplicate or bypass
+   its release workflow.
 
 Report the fixture contract, registration and docs changed, checks, and any
 consumer rollout left for a separate stage. Do not publish or assume a local

@@ -40,7 +40,7 @@
     "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
     "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
     "lint": "oxlint src scripts",
-    "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule",
+    "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule && bunx skills-ref validate skills/release-oxlint-rules",
     "test": "node --experimental-strip-types scripts/test.ts",
     "typecheck": "tsc --noEmit"
   },

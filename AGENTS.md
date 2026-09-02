@@ -10,5 +10,9 @@
   entry points, and the README rule list in sync.
 - Keep package, CLI, README, and skill content portable. Do not add personal
   filesystem paths or private configuration.
+- Apply the `release-oxlint-rules` skill for major, minor, patch, or exact
+  version release requests.
 - Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
-  `bunx jsr@0.14.3 publish --dry-run` before requesting a release.
+  `bunx jsr@0.14.3 publish --dry-run` before requesting a release. Add
+  `--allow-dirty` to the JSR command when validating intended uncommitted
+  changes.
