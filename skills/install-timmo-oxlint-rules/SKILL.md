@@ -37,8 +37,10 @@ description: >-
 3. Run `node scripts/copy.mjs <bun|npm|pnpm|yarn> <destination>`. Add `--force`
    only after explicit replacement approval.
 4. Register the three entry points printed by the command as `anti-slop`,
-   `anti-slop-effect`, and `timmo-effect`. Enable `timmo-effect` only for direct
-   Effect use or an explicit request.
+   `anti-slop-effect`, and `timmo-effect`. Merge every printed general rule
+   setting into the target config. Merge every printed Effect rule setting only
+   for direct Effect use or an explicit request. Do not maintain a rule list in
+   this skill.
 
 Run the target repository's normal lint, typecheck, tests, and build. Report
 package-manager changes, preserved local configuration, enabled rule groups,

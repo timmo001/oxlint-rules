@@ -49,9 +49,10 @@ Copy a reviewed snapshot when a repository should own the rule source:
 npx --yes @timmo001/oxlint-rules copy tools/oxlint/timmo-rules
 ```
 
-The command prints the three local plugin entry points. It excludes tests and
-repository metadata, and refuses to replace an existing destination unless
-`--force` is passed.
+The command prints the three local plugin entry points and every discovered rule
+setting to merge into the target Oxlint config. Effect settings remain opt-in.
+It excludes tests and repository metadata, and refuses to replace an existing
+destination unless `--force` is passed.
 
 ## Rules
 

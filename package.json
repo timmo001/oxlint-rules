@@ -37,7 +37,7 @@
     "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
     "lint": "oxlint src scripts",
     "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule",
-    "test": "node --experimental-strip-types src/effect/rules/no-try-catch-in-effect-generators.test.ts && bun test src/install/copy.test.ts",
+    "test": "node --experimental-strip-types scripts/test.ts",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

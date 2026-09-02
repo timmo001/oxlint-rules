@@ -1,5 +1,8 @@
 import { defineConfig } from "oxlint";
 
+import timmoEffectPlugin from "../effect/index.ts";
+import antiSlopEffectPlugin from "../upstream/effect.ts";
+import { enablePluginRules } from "./enable-plugin-rules.ts";
 import recommended from "./recommended.ts";
 
 const effect = defineConfig({
@@ -12,8 +15,8 @@ const effect = defineConfig({
     { name: "timmo-effect", specifier: "@timmo001/oxlint-rules/effect" },
   ],
   rules: {
-    "anti-slop-effect/no-service-constructor-imports": "error",
-    "timmo-effect/no-try-catch-in-effect-generators": "error",
+    ...enablePluginRules("anti-slop-effect", antiSlopEffectPlugin),
+    ...enablePluginRules("timmo-effect", timmoEffectPlugin),
   },
 });
 

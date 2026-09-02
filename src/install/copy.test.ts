@@ -31,8 +31,13 @@ describe("copyRules", () => {
     );
 
     expect(await child.exited).toBe(0);
-    expect(await new Response(child.stdout).text()).toContain(
-      "./tools/oxlint/timmo-rules/effect/index.ts",
+    const output = await new Response(child.stdout).text();
+    expect(output).toContain("./tools/oxlint/timmo-rules/effect/index.ts");
+    expect(output).toContain(
+      '"anti-slop/require-safety-comment-for-type-assertion": "error"',
+    );
+    expect(output).toContain(
+      '"timmo-effect/no-try-catch-in-effect-generators": "error"',
     );
     expect(
       Bun.file(join(directory, "tools/oxlint/timmo-rules/effect/index.ts"))
