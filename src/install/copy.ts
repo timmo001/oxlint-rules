@@ -65,7 +65,12 @@ export async function copyRules(
     join(root, "vendor/anti-slop/src/effect"),
     join(target, "upstream/effect"),
   );
+  await cp(
+    join(root, "vendor/anti-slop/LICENSE"),
+    join(target, "upstream/effect/LICENSE"),
+  );
   await copyTree(join(root, "src/effect"), join(target, "effect"));
+  await cp(join(root, "LICENSE"), join(target, "effect/LICENSE"));
 
   const displayRoot = relative(process.cwd(), target) || ".";
   const entryPoint = (path: string) => `./${path.split(sep).join("/")}`;

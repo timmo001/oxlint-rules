@@ -65,6 +65,14 @@ describe("copyRules", () => {
       await readFile(join(sourceRoot, "vendor/anti-slop/LICENSE"), "utf8"),
     );
     expect(
+      await readFile(join(destination, "upstream/effect/LICENSE"), "utf8"),
+    ).toBe(
+      await readFile(join(sourceRoot, "vendor/anti-slop/LICENSE"), "utf8"),
+    );
+    expect(await readFile(join(destination, "effect/LICENSE"), "utf8")).toBe(
+      await readFile(join(sourceRoot, "LICENSE"), "utf8"),
+    );
+    expect(
       Bun.file(
         join(
           destination,
