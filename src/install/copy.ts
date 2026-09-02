@@ -12,6 +12,7 @@ export interface CopyRulesOptions {
 export interface CopiedRuleEntryPoints {
   readonly antiSlop: string;
   readonly antiSlopEffect: string;
+  readonly timmo: string;
   readonly timmoEffect: string;
 }
 
@@ -71,12 +72,15 @@ export async function copyRules(
   );
   await copyTree(join(root, "src/effect"), join(target, "effect"));
   await cp(join(root, "LICENSE"), join(target, "effect/LICENSE"));
+  await copyTree(join(root, "src/generic"), join(target, "generic"));
+  await cp(join(root, "LICENSE"), join(target, "generic/LICENSE"));
 
   const displayRoot = relative(process.cwd(), target) || ".";
   const entryPoint = (path: string) => `./${path.split(sep).join("/")}`;
   return {
     antiSlop: entryPoint(join(displayRoot, "upstream/anti-slop/index.ts")),
     antiSlopEffect: entryPoint(join(displayRoot, "upstream/effect/index.ts")),
+    timmo: entryPoint(join(displayRoot, "generic/index.ts")),
     timmoEffect: entryPoint(join(displayRoot, "effect/index.ts")),
   };
 }

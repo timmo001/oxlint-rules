@@ -23,7 +23,8 @@ description: >-
    separately when Dylan Mulroy's plugin should own the behaviour.
 6. Register the rule in its plugin. Verify the matching config and copy command
    discover it from the plugin's `rules` map, then update the README rule list
-   and behaviour description. Do not add rule names to either skill.
+   and behaviour description. Keep skills workflow-only; do not duplicate rule
+   or plugin inventories or counts in them.
 7. Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
    `bunx jsr@0.14.3 publish --dry-run` in the central checkout.
 

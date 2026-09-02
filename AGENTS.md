@@ -2,7 +2,7 @@
 
 - `vendor/anti-slop` is an unchanged upstream Git submodule. Never patch files
   inside it.
-- Keep locally owned rules under `src/` and preserve the `anti-slop`,
+- Keep locally owned rules under `src/` and preserve the `anti-slop`, `timmo`,
   `anti-slop-effect`, and `timmo-effect` namespaces.
 - Use Oxlint's ESTree API and add focused `RuleTester` fixtures for every rule change.
 - Register every rule in its plugin. Package configs and the copy command derive

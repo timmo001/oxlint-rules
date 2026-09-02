@@ -7,6 +7,7 @@ const result = await Bun.build({
     "src/cli.ts",
     "src/upstream/anti-slop.ts",
     "src/upstream/effect.ts",
+    "src/generic/index.ts",
     "src/effect/index.ts",
     "src/configs/recommended.ts",
     "src/configs/effect.ts",

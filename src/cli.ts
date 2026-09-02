@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 import { resolve } from "node:path";
 
-import { enablePluginRules } from "./configs/enable-plugin-rules.ts";
-import timmoEffectPlugin from "./effect/index.ts";
+import effect from "./configs/effect.ts";
+import recommended from "./configs/recommended.ts";
 import { copyRules, DEFAULT_COPY_DESTINATION } from "./install/copy.ts";
-import antiSlopPlugin from "./upstream/anti-slop.ts";
-import antiSlopEffectPlugin from "./upstream/effect.ts";
 
 function usage() {
   return "Usage: oxlint-rules copy [destination] [--force]";
@@ -40,15 +38,10 @@ if (command === "--help" || command === "-h") {
       console.log("Copied Oxlint plugins:");
       console.log(`  anti-slop: ${entries.antiSlop}`);
       console.log(`  anti-slop-effect: ${entries.antiSlopEffect}`);
+      console.log(`  timmo: ${entries.timmo}`);
       console.log(`  timmo-effect: ${entries.timmoEffect}`);
-      printRuleSettings(
-        "General rule settings:",
-        enablePluginRules("anti-slop", antiSlopPlugin),
-      );
-      printRuleSettings("Effect rule settings (opt-in):", {
-        ...enablePluginRules("anti-slop-effect", antiSlopEffectPlugin),
-        ...enablePluginRules("timmo-effect", timmoEffectPlugin),
-      });
+      printRuleSettings("General rule settings:", recommended.rules ?? {});
+      printRuleSettings("Effect rule settings (opt-in):", effect.rules ?? {});
     } catch (error) {
       console.error(error instanceof Error ? error.message : String(error));
       process.exitCode = 1;

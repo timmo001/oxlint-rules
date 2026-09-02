@@ -3,6 +3,8 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { afterEach, describe, expect, test } from "bun:test";
 
+import effect from "../configs/effect.ts";
+import recommended from "../configs/recommended.ts";
 import { copyRules } from "./copy.ts";
 
 const temporaryDirectories: string[] = [];
@@ -33,12 +35,14 @@ describe("copyRules", () => {
     expect(await child.exited).toBe(0);
     const output = await new Response(child.stdout).text();
     expect(output).toContain("./tools/oxlint/timmo-rules/effect/index.ts");
-    expect(output).toContain(
-      '"anti-slop/require-safety-comment-for-type-assertion": "error"',
-    );
-    expect(output).toContain(
-      '"timmo-effect/no-try-catch-in-effect-generators": "error"',
-    );
+    expect(output).toContain("./tools/oxlint/timmo-rules/generic/index.ts");
+    for (const config of [recommended, effect]) {
+      for (const [rule, severity] of Object.entries(config.rules ?? {})) {
+        expect(output).toContain(
+          `${JSON.stringify(rule)}: ${JSON.stringify(severity)}`,
+        );
+      }
+    }
     expect(
       Bun.file(join(directory, "tools/oxlint/timmo-rules/effect/index.ts"))
         .size,
@@ -60,6 +64,9 @@ describe("copyRules", () => {
       await readFile(join(destination, "effect/index.ts"), "utf8"),
     ).toContain('meta: { name: "timmo-effect" }');
     expect(
+      await readFile(join(destination, "generic/index.ts"), "utf8"),
+    ).toContain('meta: { name: "timmo" }');
+    expect(
       await readFile(join(destination, "upstream/anti-slop/LICENSE"), "utf8"),
     ).toBe(
       await readFile(join(sourceRoot, "vendor/anti-slop/LICENSE"), "utf8"),
@@ -72,6 +79,9 @@ describe("copyRules", () => {
     expect(await readFile(join(destination, "effect/LICENSE"), "utf8")).toBe(
       await readFile(join(sourceRoot, "LICENSE"), "utf8"),
     );
+    expect(await readFile(join(destination, "generic/LICENSE"), "utf8")).toBe(
+      await readFile(join(sourceRoot, "LICENSE"), "utf8"),
+    );
     expect(
       Bun.file(
         join(
@@ -82,6 +92,7 @@ describe("copyRules", () => {
     ).toBe(0);
     expect(Bun.file(join(destination, "upstream/anti-slop/.git")).size).toBe(0);
     expect(entries.antiSlop).toEndWith("/rules/upstream/anti-slop/index.ts");
+    expect(entries.timmo).toEndWith("/rules/generic/index.ts");
   });
 
   test("refuses an existing destination unless force is set", async () => {

@@ -2,7 +2,8 @@
 
 Shared Oxlint plugins and configs built around the unchanged
 [`dmmulroy/anti-slop`](https://github.com/dmmulroy/anti-slop) rules, with
-separately owned Effect rules under the `timmo-effect` namespace.
+locally owned generic rules under `timmo` and Effect rules under
+`timmo-effect`.
 
 Oxlint's JavaScript plugin API is alpha. Consumers must keep `oxlint` and
 `@oxlint/plugins` on the exact peer versions declared by this package.
@@ -49,10 +50,10 @@ Copy a reviewed snapshot when a repository should own the rule source:
 npx --yes @timmo001/oxlint-rules copy tools/oxlint/timmo-rules
 ```
 
-The command prints the three local plugin entry points and every discovered rule
-setting to merge into the target Oxlint config. Effect settings remain opt-in.
-It excludes tests and repository metadata, and refuses to replace an existing
-destination unless `--force` is passed.
+The command prints every copied plugin entry point and the rule settings from
+the package configs to merge into the target Oxlint config. Effect settings
+remain opt-in. It excludes tests and repository metadata, and refuses to
+replace an existing destination unless `--force` is passed.
 
 ## Rules
 
@@ -73,6 +74,12 @@ destination unless `--force` is passed.
 - `no-unsafe-dictionary-type`
 - `no-widen-then-assert`
 - `require-safety-comment-for-type-assertion`
+
+### `timmo`
+
+- `prefer-event-parameter-type`: reports assertions on a handler parameter's
+  `target` or `currentTarget`. Express the target type in the function signature
+  instead so every use sees the same contract.
 
 ### `anti-slop-effect`
 

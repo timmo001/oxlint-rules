@@ -5,6 +5,7 @@
   "exports": {
     "./upstream/anti-slop": "./src/jsr/upstream-anti-slop.ts",
     "./upstream/effect": "./src/jsr/upstream-effect.ts",
+    "./generic": "./src/jsr/generic.ts",
     "./effect": "./src/jsr/effect.ts",
     "./configs/recommended": "./src/jsr/recommended.ts",
     "./configs/effect": "./src/jsr/effect-config.ts"
@@ -12,6 +13,7 @@
   "publish": {
     "include": [
       "dist/upstream/*.js",
+      "dist/generic/index.js",
       "dist/effect/index.js",
       "dist/configs/*.js",
       "src/jsr/**/*.ts",

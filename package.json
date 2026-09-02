@@ -14,6 +14,7 @@
   "exports": {
     "./upstream/anti-slop": "./dist/upstream/anti-slop.js",
     "./upstream/effect": "./dist/upstream/effect.js",
+    "./generic": "./dist/generic/index.js",
     "./effect": "./dist/effect/index.js",
     "./configs/recommended": "./dist/configs/recommended.js",
     "./configs/effect": "./dist/configs/effect.js"
@@ -21,6 +22,8 @@
   "files": [
     "dist",
     "src/effect",
+    "src/generic",
+    "!src/generic/**/*.test.ts",
     "!src/effect/**/*.test.ts",
     "vendor/anti-slop/src",
     "vendor/anti-slop/LICENSE",

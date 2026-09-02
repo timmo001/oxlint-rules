@@ -23,9 +23,9 @@ description: >-
 2. Detect Bun, npm, pnpm, or Yarn from the target's package manager declaration
    and lockfile. Add an exact development dependency through that package
    manager.
-3. Extend `@timmo001/oxlint-rules/configs/recommended`. Use `/configs/effect`
-   instead only when `effect` is a direct dependency or the user explicitly
-   requests it.
+3. Extend `@timmo001/oxlint-rules/configs/recommended`. The config owns plugin
+   registration and recommended severities. Use `/configs/effect` instead only
+   when `effect` is a direct dependency or the user explicitly requests it.
 4. Keep dependency and config edits visible. Do not delegate them to a script.
 
 ## Copy rules
@@ -36,11 +36,11 @@ description: >-
    meaningful differences before asking whether replacement is intended.
 3. Run `node scripts/copy.mjs <bun|npm|pnpm|yarn> <destination>`. Add `--force`
    only after explicit replacement approval.
-4. Register the three entry points printed by the command as `anti-slop`,
-   `anti-slop-effect`, and `timmo-effect`. Merge every printed general rule
-   setting into the target config. Merge every printed Effect rule setting only
-   for direct Effect use or an explicit request. Do not maintain a rule list in
-   this skill.
+4. Register every plugin entry point printed by the command. Merge every printed
+   general rule setting into the target config. Merge every printed Effect rule
+   setting only for direct Effect use or an explicit request. Treat the command
+   output as authoritative rather than maintaining plugin or rule inventories
+   in this skill.
 
 Run the target repository's normal lint, typecheck, tests, and build. Report
 package-manager changes, preserved local configuration, enabled rule groups,
