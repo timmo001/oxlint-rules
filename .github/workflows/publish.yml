@@ -21,7 +21,7 @@ jobs:
 
   jsr:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/publish-jsr-package.yml@f673e4311bca0dd69aa3acf28f95c5f745121ef5 # master
+    uses: timmo001/workflows/.github/workflows/publish-jsr-package.yml@33ed693dee5840a8f43ed4df20e17cf2a967b620 # master
     permissions:
       contents: read
       id-token: write
