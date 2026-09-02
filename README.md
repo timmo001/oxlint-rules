@@ -1,8 +1,11 @@
 # Oxlint Rules
 
-Shared Oxlint plugins and configs built around the unchanged [`dmmulroy/anti-slop`](https://github.com/dmmulroy/anti-slop) rules, with separately owned Effect rules under the `timmo-effect` namespace.
+Shared Oxlint plugins and configs built around the unchanged
+[`dmmulroy/anti-slop`](https://github.com/dmmulroy/anti-slop) rules, with
+separately owned Effect rules under the `timmo-effect` namespace.
 
-Oxlint's JavaScript plugin API is alpha. Consumers must keep `oxlint` and `@oxlint/plugins` on the exact peer versions declared by this package.
+Oxlint's JavaScript plugin API is alpha. Consumers must keep `oxlint` and
+`@oxlint/plugins` on the exact peer versions declared by this package.
 
 ## Install
 
@@ -34,7 +37,9 @@ export default defineConfig({
 });
 ```
 
-Both configs can be installed from JSR with its npm compatibility support. npmjs.org remains the default for package managers that resolve ordinary package names from `node_modules`.
+Both configs can be installed from JSR with its npm compatibility support.
+npmjs.org remains the default for package managers that resolve ordinary
+package names from `node_modules`.
 
 ## Copy rules
 
@@ -44,7 +49,9 @@ Copy a reviewed snapshot when a repository should own the rule source:
 npx --yes @timmo001/oxlint-rules copy tools/oxlint/timmo-rules
 ```
 
-The command prints the three local plugin entry points. It excludes tests and repository metadata, and refuses to replace an existing destination unless `--force` is passed.
+The command prints the three local plugin entry points. It excludes tests and
+repository metadata, and refuses to replace an existing destination unless
+`--force` is passed.
 
 ## Rules
 
@@ -72,7 +79,11 @@ The command prints the three local plugin entry points. It excludes tests and re
 
 ### `timmo-effect`
 
-- `no-try-catch-in-effect-generators`: diagnoses synchronous `try/catch` owned by generators passed directly to `Effect.gen` or the curried `Effect.fn` form. It leaves ordinary async polling, nested callback boundaries, non-Effect generators, and `try/finally` cleanup alone. The rule is diagnostic-only because catch bodies cannot be rewritten safely in general.
+- `no-try-catch-in-effect-generators`: diagnoses synchronous `try/catch` owned
+  by generators passed directly to `Effect.gen` or the curried `Effect.fn`
+  form. It leaves ordinary async polling, nested callback boundaries,
+  non-Effect generators, and `try/finally` cleanup alone. The rule is
+  diagnostic-only because catch bodies cannot be rewritten safely in general.
 
 ## Development
 
@@ -86,4 +97,6 @@ npm pack --dry-run
 bunx jsr@0.14.3 publish --dry-run
 ```
 
-Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its source and MIT licence unchanged, then run the full package checks so both upstream exports and composed configs are verified.
+Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its
+source and MIT licence unchanged, then run the full package checks so both
+upstream exports and composed configs are verified.
