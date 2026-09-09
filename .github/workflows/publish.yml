@@ -14,14 +14,14 @@ permissions:
 jobs:
   npm:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/publish-npm-package.yml@722ef29d1740604bd16be91fde520339d2cfadbb # master
+    uses: timmo001/workflows/.github/workflows/publish-npm-package.yml@76f563af4f42ee9be7afe567514c4e376b3b56c6 # master
     permissions:
       contents: read
       id-token: write
 
   jsr:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/publish-jsr-package.yml@722ef29d1740604bd16be91fde520339d2cfadbb # master
+    uses: timmo001/workflows/.github/workflows/publish-jsr-package.yml@76f563af4f42ee9be7afe567514c4e376b3b56c6 # master
     permissions:
       contents: read
       id-token: write
