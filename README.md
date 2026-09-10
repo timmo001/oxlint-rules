@@ -57,34 +57,15 @@ replace an existing destination unless `--force` is passed.
 
 ## Rules
 
-### `anti-slop`
+### `anti-slop` and `anti-slop-effect`
 
-- `no-chained-type-assertions`
-- `no-conditional-empty-object-spread`
-- `no-known-value-widening`
-- `no-module-mocking`
-- `no-object-parameters`
-- `no-reflect-apply`
-- `no-reflect-get`
-- `no-runtime-typeof`
-- `no-shape-in-symbol-names`
-- `no-unknown-parameters`
-- `no-unknown-returns`
-- `no-unknown-type-aliases`
-- `no-unsafe-dictionary-type`
-- `no-widen-then-assert`
-- `require-readable-spacing`
-- `require-safety-comment-for-type-assertion`
+See the upstream [rule documentation](https://github.com/dmmulroy/anti-slop#rules).
 
 ### `timmo`
 
 - `prefer-event-parameter-type`: reports assertions on a handler parameter's
   `target` or `currentTarget`. Express the target type in the function signature
   instead so every use sees the same contract.
-
-### `anti-slop-effect`
-
-See the upstream [Effect rules](https://github.com/dmmulroy/anti-slop#effect-rules).
 
 ### `timmo-effect`
 
