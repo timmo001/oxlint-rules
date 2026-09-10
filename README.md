@@ -73,6 +73,7 @@ replace an existing destination unless `--force` is passed.
 - `no-unknown-type-aliases`
 - `no-unsafe-dictionary-type`
 - `no-widen-then-assert`
+- `require-readable-spacing`
 - `require-safety-comment-for-type-assertion`
 
 ### `timmo`
@@ -83,7 +84,7 @@ replace an existing destination unless `--force` is passed.
 
 ### `anti-slop-effect`
 
-- `no-service-constructor-imports`
+See the upstream [Effect rules](https://github.com/dmmulroy/anti-slop#effect-rules).
 
 ### `timmo-effect`
 
