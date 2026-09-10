@@ -18,6 +18,7 @@
       "dist/configs/*.js",
       "src/jsr/**/*.ts",
       "vendor/anti-slop/LICENSE",
+      "vendor/anti-slop/src/vendor/eslint-stylistic/LICENSE",
       "LICENSE",
       "README.md",
       "THIRD_PARTY_NOTICES.md"
