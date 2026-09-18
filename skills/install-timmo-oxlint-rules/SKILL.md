@@ -43,6 +43,8 @@ description: >-
    output as authoritative rather than maintaining plugin or rule inventories
    in this skill.
 
-Run the target repository's normal lint, typecheck, tests, and build. Report
+Run the target repository's lint command to verify the configuration loads, plus
+any checks explicitly required by that repository. Run typechecks, tests, or a
+build only when code or dependencies changed in a way those checks cover. Report
 package-manager changes, preserved local configuration, enabled rule groups,
 and checks.
