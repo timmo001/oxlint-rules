@@ -8,6 +8,7 @@ import recommendedEffect from "../configs/recommended-effect.ts";
 import { copyRules } from "./copy.ts";
 
 const temporaryDirectories: string[] = [];
+
 const sourceRoot = resolve(import.meta.dirname, "../..");
 
 afterEach(async () => {
@@ -21,12 +22,14 @@ afterEach(async () => {
 async function temporaryDirectory() {
   const directory = await mkdtemp(join(tmpdir(), "oxlint-rules-"));
   temporaryDirectories.push(directory);
+
   return directory;
 }
 
 describe("copyRules", () => {
   test("the CLI uses a repository-relative default destination", async () => {
     const directory = await temporaryDirectory();
+
     const child = Bun.spawn(
       [process.execPath, join(sourceRoot, "src/cli.ts"), "copy"],
       { cwd: directory, stderr: "pipe", stdout: "pipe" },
@@ -36,6 +39,7 @@ describe("copyRules", () => {
     const output = await new Response(child.stdout).text();
     expect(output).toContain("./tools/oxlint/timmo-rules/effect/index.ts");
     expect(output).toContain("./tools/oxlint/timmo-rules/generic/index.ts");
+
     for (const config of [recommended, recommendedEffect]) {
       for (const [rule, severity] of Object.entries(config.rules ?? {})) {
         expect(output).toContain(
@@ -43,6 +47,7 @@ describe("copyRules", () => {
         );
       }
     }
+
     expect(
       Bun.file(join(directory, "tools/oxlint/timmo-rules/effect/index.ts"))
         .size,

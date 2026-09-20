@@ -87,6 +87,17 @@ npm pack --dry-run
 bunx jsr publish --dry-run
 ```
 
+`bun run lint` builds the local plugins before linting all maintained code,
+including tests, tooling, the root config and packaged skill scripts. The root
+config extends the local `recommended-effect` source config, enabling every
+registered rule in `anti-slop`, `timmo`, `anti-slop-effect` and `timmo-effect`.
+Plugin imports resolve through this package's exports to the fresh `dist` build.
+
+Lint disables nested configs so the vendored submodule's config cannot override
+the root exclusions. Generated output, vendored source and agent directories
+remain excluded. RuleTester fixture strings retain their intentional violations;
+the surrounding test code is linted with the full rule set.
+
 Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its
 source and MIT licence unchanged, then run the full package checks so both
 upstream exports and composed configs are verified.

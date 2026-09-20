@@ -9,16 +9,20 @@ function resolveVariable(
   identifier: ESTree.IdentifierReference,
 ): Variable | null {
   let scope: Scope | null = sourceCode.getScope(identifier);
+
   while (scope) {
     const variable = scope.set.get(identifier.name);
+
     if (variable) return variable;
     scope = scope.upper;
   }
+
   return null;
 }
 
 function nearestEnclosingFunction(node: ESTree.Node): FunctionNode | null {
   let current: ESTree.Node | null = node.parent;
+
   while (current) {
     if (
       current.type === "FunctionDeclaration" ||
@@ -27,13 +31,16 @@ function nearestEnclosingFunction(node: ESTree.Node): FunctionNode | null {
     ) {
       return current;
     }
+
     current = current.parent;
   }
+
   return null;
 }
 
 function staticMemberName(node: ESTree.Expression): string | null {
   if (node.type !== "MemberExpression" || node.computed) return null;
+
   return node.property.type === "Identifier" ? node.property.name : null;
 }
 
@@ -43,6 +50,7 @@ function isEffectImport(
   namespace: boolean,
 ): boolean {
   const variable = resolveVariable(sourceCode, identifier);
+
   return (
     variable?.defs.some((definition) => {
       if (
@@ -52,9 +60,12 @@ function isEffectImport(
       ) {
         return false;
       }
+
       if (namespace) return definition.node.type === "ImportNamespaceSpecifier";
+
       if (definition.node.type !== "ImportSpecifier") return false;
       const imported = definition.node.imported;
+
       return (
         (imported.type === "Identifier" ? imported.name : imported.value) ===
         "Effect"
@@ -71,10 +82,13 @@ function isEffectMethod(
   if (staticMemberName(node) !== method || node.type !== "MemberExpression") {
     return false;
   }
+
   const object = node.object;
+
   if (object.type === "Identifier") {
     return isEffectImport(sourceCode, object, false);
   }
+
   if (
     staticMemberName(object) !== "Effect" ||
     object.type !== "MemberExpression" ||
@@ -82,6 +96,7 @@ function isEffectMethod(
   ) {
     return false;
   }
+
   return isEffectImport(sourceCode, object.object, true);
 }
 
@@ -97,12 +112,15 @@ function isRecognisedEffectGenerator(
   owner: FunctionNode,
 ): boolean {
   const parent = owner.parent;
+
   if (parent.type !== "CallExpression" || !isDirectArgument(owner, parent)) {
     return false;
   }
+
   if (isEffectMethod(sourceCode, parent.callee, "gen")) return true;
 
   const factoryCall = parent.callee;
+
   return (
     factoryCall.type === "CallExpression" &&
     isEffectMethod(sourceCode, factoryCall.callee, "fn")
@@ -127,12 +145,14 @@ export const noTryCatchInEffectGeneratorsRule = defineRule({
       TryStatement(node) {
         if (!node.handler) return;
         const owner = nearestEnclosingFunction(node);
+
         if (
           !owner?.generator ||
           !isRecognisedEffectGenerator(context.sourceCode, owner)
         ) {
           return;
         }
+
         context.report({ node, messageId: "useEffectErrorChannel" });
       },
     };

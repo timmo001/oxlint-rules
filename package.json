@@ -36,10 +36,10 @@
   ],
   "scripts": {
     "build": "bun run scripts/build.ts",
-    "check": "bun run build && bun run test && bun run lint && bun run typecheck && bun run format:check && bun run skills:validate",
-    "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
-    "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.md\" \"*.json\"",
-    "lint": "oxlint src scripts",
+    "check": "bun run lint && bun run test && bun run typecheck && bun run format:check && bun run skills:validate",
+    "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
+    "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
+    "lint": "bun run build && oxlint --disable-nested-config .",
     "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule && bunx skills-ref validate skills/release-oxlint-rules",
     "test": "node --experimental-strip-types scripts/test.ts",
     "typecheck": "tsc --noEmit"

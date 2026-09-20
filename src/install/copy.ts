@@ -18,6 +18,7 @@ export interface CopiedRuleEntryPoints {
 
 function packageRoot() {
   const current = dirname(fileURLToPath(import.meta.url));
+
   return current.endsWith(join("src", "install"))
     ? resolve(current, "../..")
     : resolve(current, "..");
@@ -36,15 +37,18 @@ export async function copyRules(
   options: CopyRulesOptions = {},
 ): Promise<CopiedRuleEntryPoints> {
   const target = resolve(destination);
+
   const entries = await readdir(dirname(target), { withFileTypes: true }).catch(
     () => [],
   );
+
   if (entries.some((entry) => entry.name === target.split(/[\\/]/u).at(-1))) {
     if (!options.force) {
       throw new Error(
         `Destination already exists: ${target}. Pass --force to replace it.`,
       );
     }
+
     await rm(target, { force: true, recursive: true });
   }
 
@@ -77,6 +81,7 @@ export async function copyRules(
 
   const displayRoot = relative(process.cwd(), target) || ".";
   const entryPoint = (path: string) => `./${path.split(sep).join("/")}`;
+
   return {
     antiSlop: entryPoint(join(displayRoot, "upstream/anti-slop/index.ts")),
     antiSlopEffect: entryPoint(join(displayRoot, "upstream/effect/index.ts")),

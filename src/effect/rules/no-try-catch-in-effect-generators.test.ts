@@ -3,6 +3,7 @@ import { RuleTester } from "oxlint/plugins-dev";
 import { noTryCatchInEffectGeneratorsRule } from "./no-try-catch-in-effect-generators.ts";
 
 const error = { messageId: "useEffectErrorChannel" };
+
 const tester = new RuleTester({
   languageOptions: { parserOptions: { lang: "ts" } },
 });

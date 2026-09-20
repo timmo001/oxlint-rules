@@ -1,5 +1,7 @@
+import type { Plugin } from "@oxlint/plugins";
+
 interface PluginWithRules {
-  readonly rules: Readonly<Record<string, unknown>>;
+  readonly rules: Readonly<Plugin["rules"]>;
 }
 
 export function enablePluginRules(namespace: string, plugin: PluginWithRules) {

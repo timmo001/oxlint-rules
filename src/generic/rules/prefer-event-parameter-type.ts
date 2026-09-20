@@ -3,10 +3,12 @@ import { defineRule } from "@oxlint/plugins";
 import type { ESTree } from "@oxlint/plugins";
 
 type FunctionNode = ESTree.Function | ESTree.ArrowFunctionExpression;
+
 type TypeAssertion = ESTree.TSAsExpression | ESTree.TSTypeAssertion;
 
 function nearestEnclosingFunction(node: ESTree.Node): FunctionNode | null {
   let current: ESTree.Node | null = node.parent;
+
   while (current) {
     if (
       current.type === "FunctionDeclaration" ||
@@ -15,8 +17,10 @@ function nearestEnclosingFunction(node: ESTree.Node): FunctionNode | null {
     ) {
       return current;
     }
+
     current = current.parent;
   }
+
   return null;
 }
 
@@ -25,6 +29,7 @@ function assertedEventParameter(node: TypeAssertion): {
   readonly property: "currentTarget" | "target";
 } | null {
   const expression = node.expression;
+
   if (
     expression.type !== "MemberExpression" ||
     expression.computed ||
@@ -35,9 +40,11 @@ function assertedEventParameter(node: TypeAssertion): {
   ) {
     return null;
   }
+
   const parameterName = expression.object.name;
   const property = expression.property.name;
   const owner = nearestEnclosingFunction(node);
+
   if (
     !owner?.params.some(
       (parameter) =>
@@ -46,6 +53,7 @@ function assertedEventParameter(node: TypeAssertion): {
   ) {
     return null;
   }
+
   return {
     parameter: parameterName,
     property,
@@ -68,6 +76,7 @@ export const preferEventParameterTypeRule = defineRule({
   create(context) {
     const checkAssertion = (node: TypeAssertion) => {
       const eventParameter = assertedEventParameter(node);
+
       if (!eventParameter) return;
       context.report({
         node,
@@ -75,6 +84,7 @@ export const preferEventParameterTypeRule = defineRule({
         data: eventParameter,
       });
     };
+
     return {
       TSAsExpression: checkAssertion,
       TSTypeAssertion: checkAssertion,

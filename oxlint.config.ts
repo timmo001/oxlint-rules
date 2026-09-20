@@ -1,6 +1,9 @@
 import { defineConfig } from "oxlint";
 
+import recommendedEffect from "./src/configs/recommended-effect.ts";
+
 export default defineConfig({
+  extends: [recommendedEffect],
   ignorePatterns: [
     ".agent/**",
     ".agents/**",

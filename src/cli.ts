@@ -5,21 +5,25 @@ import recommended from "./configs/recommended.ts";
 import recommendedEffect from "./configs/recommended-effect.ts";
 import { copyRules, DEFAULT_COPY_DESTINATION } from "./install/copy.ts";
 
+import type { OxlintConfig } from "oxlint";
+
 function usage() {
   return "Usage: oxlint-rules copy [destination] [--force]";
 }
 
 function printRuleSettings(
   heading: string,
-  settings: Readonly<Record<string, unknown>>,
+  settings: Readonly<NonNullable<OxlintConfig["rules"]>>,
 ) {
   console.log(heading);
+
   for (const [rule, severity] of Object.entries(settings)) {
     console.log(`  ${JSON.stringify(rule)}: ${JSON.stringify(severity)},`);
   }
 }
 
 const [command, ...arguments_] = process.argv.slice(2);
+
 if (command === "--help" || command === "-h") {
   console.log(usage());
 } else if (command !== "copy") {
@@ -28,6 +32,7 @@ if (command === "--help" || command === "-h") {
 } else {
   const force = arguments_.includes("--force");
   const positional = arguments_.filter((argument) => argument !== "--force");
+
   if (positional.length > 1) {
     console.error(usage());
     process.exitCode = 1;

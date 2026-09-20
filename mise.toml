@@ -14,7 +14,7 @@ depends = ["install"]
 run = "bun run test"
 
 [tasks.lint]
-description = "Lint package source"
+description = "Build local plugins and lint maintained code"
 depends = ["install"]
 run = "bun run lint"
 

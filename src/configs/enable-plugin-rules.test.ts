@@ -6,7 +6,10 @@ describe("enablePluginRules", () => {
   test("enables every registered rule", () => {
     expect(
       enablePluginRules("example", {
-        rules: { "second-rule": {}, "first-rule": {} },
+        rules: {
+          "second-rule": { create: () => ({}) },
+          "first-rule": { create: () => ({}) },
+        },
       }),
     ).toEqual({
       "example/first-rule": "error",

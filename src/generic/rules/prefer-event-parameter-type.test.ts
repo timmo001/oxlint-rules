@@ -3,6 +3,7 @@ import { RuleTester } from "oxlint/plugins-dev";
 import { preferEventParameterTypeRule } from "./prefer-event-parameter-type.ts";
 
 const error = { messageId: "typeEventParameter" };
+
 const tester = new RuleTester({
   languageOptions: { parserOptions: { lang: "ts" } },
 });
