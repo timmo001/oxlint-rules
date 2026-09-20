@@ -15,10 +15,10 @@ permissions:
 jobs:
   general:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/lint-general.yml@065e689c85cec1e7d025f6d074b2589e41d6bb2b # master
+    uses: timmo001/workflows/.github/workflows/lint-general.yml@bb2645bb83532b44ccc6d9657324eb97715df485 # master
 
   skills:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/lint-agent-skills.yml@065e689c85cec1e7d025f6d074b2589e41d6bb2b # master
+    uses: timmo001/workflows/.github/workflows/lint-agent-skills.yml@bb2645bb83532b44ccc6d9657324eb97715df485 # master
     with:
       skill-roots: skills
