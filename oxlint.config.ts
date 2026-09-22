@@ -4,6 +4,9 @@ import recommendedEffect from "./src/configs/recommended-effect.ts";
 
 export default defineConfig({
   extends: [recommendedEffect],
+  options: {
+    typeAware: true,
+  },
   ignorePatterns: [
     ".agent/**",
     ".agents/**",

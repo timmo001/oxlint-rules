@@ -1,3 +1,4 @@
+import { rejects } from "node:assert/strict";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -104,8 +105,9 @@ describe("copyRules", () => {
     const directory = await temporaryDirectory();
     const destination = join(directory, "rules");
     await copyRules(destination, { sourceRoot });
-    await expect(copyRules(destination, { sourceRoot })).rejects.toThrow(
-      "Destination already exists",
+    await rejects(
+      copyRules(destination, { sourceRoot }),
+      /Destination already exists/,
     );
 
     await writeFile(join(destination, "stale.ts"), "stale");
