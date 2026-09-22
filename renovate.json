@@ -1,4 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>timmo001/renovate-config"]
+  "extends": ["github>timmo001/renovate-config"],
+  "packageRules": [
+    {
+      "description": "Keep the latest Oxlint development and peer versions pinned together.",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["oxlint", "@oxlint/plugins", "oxlint-tsgolint"],
+      "matchDepTypes": ["devDependencies", "peerDependencies"],
+      "enabled": true,
+      "rangeStrategy": "pin"
+    }
+  ]
 }

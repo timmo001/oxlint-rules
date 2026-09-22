@@ -5,12 +5,21 @@ Shared Oxlint plugins and configs built around the unchanged
 locally owned generic rules under `timmo` and Effect rules under
 `timmo-effect`.
 
-Oxlint's JavaScript plugin API is alpha. Consumers must keep `oxlint` and
-`@oxlint/plugins` on the exact peer versions declared by this package.
+This package targets the latest stable Oxlint toolchain. Oxlint's
+[JavaScript plugin API is alpha](https://oxc.rs/docs/guide/usage/linter/config.html)
+and is outside its semver guarantees, so each rules release declares the exact
+`oxlint` and `@oxlint/plugins` versions it has validated. Older toolchains and
+untested future versions are not part of the support contract.
 
 ## Install
 
-Install from npm with the package manager already used by the repository:
+Check the published rules package's `peerDependencies` against the official npm
+`latest` versions of `oxlint` and `@oxlint/plugins`. If they differ, a validated
+rules release is needed before upgrading. Do not bypass peer checks or override
+Vite Plus's bundled dependencies to make an unsupported version fit.
+
+Once the versions match, install from npm with the package manager already used
+by the repository:
 
 ```sh
 bun add --dev --exact @timmo001/oxlint-rules oxlint @oxlint/plugins
@@ -41,6 +50,11 @@ export default defineConfig({
 Both configs can be installed from JSR with its npm compatibility support.
 npmjs.org remains the default for package managers that resolve ordinary
 package names from `node_modules`.
+
+For type-aware linting, also pin the latest `oxlint-tsgolint` version that meets
+Oxlint's declared peer requirement and has passed the package check. Enable
+`options: { typeAware: true }` in the consumer's config. The shared configs do
+not enable type-aware linting themselves.
 
 ## Copy rules
 
@@ -83,8 +97,9 @@ Initialise the upstream source and run the package checks:
 git submodule update --init --recursive
 mise run check
 mise run build
+mise run test:package
 npm pack --dry-run
-bunx jsr publish --dry-run
+bunx jsr@0.14.3 publish --dry-run --allow-dirty
 ```
 
 `bun run lint` builds the local plugins before linting all maintained code,
@@ -97,6 +112,29 @@ Lint disables nested configs so the vendored submodule's config cannot override
 the root exclusions. Generated output, vendored source and agent directories
 remain excluded. RuleTester fixture strings retain their intentional violations;
 the surrounding test code is linted with the full rule set.
+
+`mise run test:package` builds and packs once, then installs the tarball in an
+isolated consumer using the exact toolchain pins from `package.json` and strict
+peer checks. It verifies both recommended configs, diagnostics from all four
+shared namespaces, and valid and invalid type-aware examples. CI runs this
+through the existing package workflow's build step. It also requires matching,
+exact Oxlint development and peer versions.
+
+### Toolchain updates and releases
+
+Renovate's shared preset groups Oxlint, `@oxlint/plugins` and `oxlint-tsgolint`.
+The local rule keeps both development and peer dependencies pinned instead of
+widening peer ranges. For each update:
+
+1. Verify the official npm `latest` versions and Oxlint's tsgolint peer
+   requirement. Keep Oxlint and plugins on the same latest version and regenerate
+   the lockfile with the selected tsgolint version.
+2. Run the checks and package dry-runs above. Fix any API incompatibility before
+   accepting the new pins; do not disable rules or bypass peer failures.
+3. Review and merge the validated update. Consumers need a separately approved
+   version bump and release to receive the new peer contract. Publishing a
+   GitHub release triggers the existing npm and JSR workflows; both must succeed
+   before the update is available to consumers.
 
 Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its
 source and MIT licence unchanged, then run the full package checks so both

@@ -12,7 +12,9 @@
   filesystem paths or private configuration.
 - Apply the `release-oxlint-rules` skill for major, minor, patch, or exact
   version release requests.
-- Run `mise run check`, `mise run build`, `npm pack --dry-run`, and
+- Keep Oxlint support latest-only with matching exact development and peer pins.
+  Validate toolchain updates against packed output with `mise run test:package`.
+- Run `mise run check`, `mise run build`, `mise run test:package`, `npm pack --dry-run`, and
   `bunx jsr@0.14.3 publish --dry-run` before requesting a release. Add
   `--allow-dirty` to the JSR command when validating intended uncommitted
   changes.

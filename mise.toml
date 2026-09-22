@@ -46,3 +46,8 @@ depends = ["test", "lint", "typecheck", "format:check", "skills:validate"]
 description = "Build portable ESM package entry points"
 depends = ["install"]
 run = "bun run build"
+
+[tasks."test:package"]
+description = "Test packed rules with the pinned latest Oxlint toolchain"
+depends = ["install"]
+run = "bun run test:package"

@@ -14,8 +14,12 @@ description: >-
    instructions, and normal checks. Use the current working directory unless
    the user names another target.
 3. Preserve existing ignores, overrides, plugins, and repository-owned rules.
-   Confirm `oxlint` and `@oxlint/plugins` use the same exact version supported
-   by the selected package version.
+   Verify the official npm `latest` versions of `oxlint` and `@oxlint/plugins`.
+   They must match each other and the exact peers of the selected rules release.
+   Support is latest-only: if the published peer contract has not caught up,
+   report the pending rules release instead of widening peers or bypassing
+   package-manager failures. Do not force upgrades of Vite Plus's transitive
+   dependencies or assume its bundled plugins satisfy this contract.
 
 ## Package
 
@@ -28,6 +32,10 @@ description: >-
    instead only when `effect` is a direct dependency or the user explicitly
    requests it.
 4. Keep dependency and config edits visible. Do not delegate them to a script.
+5. For type-aware linting, explicitly pin the latest `oxlint-tsgolint` that
+   satisfies Oxlint's peer requirement and was validated with the rules release.
+   Enable `options.typeAware` in the target config and verify type-aware linting
+   alongside the shared rules.
 
 ## Copy rules
 

@@ -42,6 +42,7 @@
     "lint": "bun run build && oxlint --disable-nested-config .",
     "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule && bunx skills-ref validate skills/release-oxlint-rules",
     "test": "node --experimental-strip-types scripts/test.ts",
+    "test:package": "node --experimental-strip-types scripts/test-package.ts",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
