@@ -15,6 +15,7 @@ const recommended = defineConfig({
   rules: {
     ...enablePluginRules("anti-slop", antiSlopPlugin),
     ...enablePluginRules("timmo", timmoPlugin),
+    "anti-slop/require-safety-comment-for-type-assertion": "off",
   },
 });
 

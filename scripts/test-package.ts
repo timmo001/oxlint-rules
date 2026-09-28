@@ -88,10 +88,14 @@ try {
     join(consumer, "tsconfig.json"),
     JSON.stringify({
       compilerOptions: { strict: true, target: "ES2022", module: "NodeNext" },
-      include: ["generic.ts", "type-aware.ts", "valid.ts"],
+      include: ["assertion.ts", "generic.ts", "type-aware.ts", "valid.ts"],
     }),
   );
   await writeFile(join(consumer, "valid.ts"), "void Promise.resolve(1);\n");
+  await writeFile(
+    join(consumer, "assertion.ts"),
+    "// SAFETY: The caller checked this value.\nexport const value = input as string;\n",
+  );
   await writeFile(join(consumer, "type-aware.ts"), "Promise.resolve(1);\n");
   await writeFile(
     join(consumer, "generic.ts"),
@@ -131,6 +135,12 @@ export default { extends: [recommended] };
     ];
 
     run(consumer, "node", [...args, "valid.ts"]);
+    const assertion = run(consumer, "node", [...args, "assertion.ts"], 1);
+    assert.match(assertion, /timmo\(prefer-types-over-assertions\)/u);
+    assert.doesNotMatch(
+      assertion,
+      /anti-slop\(require-safety-comment-for-type-assertion\)/u,
+    );
     const generic = run(consumer, "node", [...args, "generic.ts"], 1);
     assert.match(generic, /anti-slop\(no-array-filter-map\)/u);
     assert.match(generic, /timmo\(prefer-event-parameter-type\)/u);

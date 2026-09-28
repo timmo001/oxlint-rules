@@ -74,12 +74,20 @@ replace an existing destination unless `--force` is passed.
 ### `anti-slop` and `anti-slop-effect`
 
 See the upstream [rule documentation](https://github.com/dmmulroy/anti-slop#rules).
+The recommended configs disable
+`anti-slop/require-safety-comment-for-type-assertion` in favour of
+`timmo/prefer-types-over-assertions`. The upstream rule remains available for
+explicit use.
 
 ### `timmo`
 
 - `prefer-event-parameter-type`: reports assertions on a handler parameter's
   `target` or `currentTarget`. Express the target type in the function signature
   instead so every use sees the same contract.
+- `prefer-types-over-assertions`: reports non-`const` TypeScript assertions,
+  even when preceded by a `SAFETY:` comment. Type values where they enter the
+  code, for example in function parameters or a checked DOM lookup helper that
+  returns `null` when the element is missing or has the wrong type.
 
 ### `timmo-effect`
 
@@ -104,8 +112,9 @@ bunx jsr@0.14.3 publish --dry-run --allow-dirty
 
 `bun run lint` builds the local plugins before linting all maintained code,
 including tests, tooling, the root config and packaged skill scripts. The root
-config extends the local `recommended-effect` source config, enabling every
-registered rule in `anti-slop`, `timmo`, `anti-slop-effect` and `timmo-effect`.
+config extends the local `recommended-effect` source config, enabling registered
+rules in `anti-slop`, `timmo`, `anti-slop-effect` and `timmo-effect` except for
+the upstream safety-comment requirement described above.
 Plugin imports resolve through this package's exports to the fresh `dist` build.
 
 Lint disables nested configs so the vendored submodule's config cannot override
