@@ -1,5 +1,5 @@
 import { rejects } from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { afterEach, describe, expect, test } from "bun:test";
@@ -57,6 +57,10 @@ describe("copyRules", () => {
 
   test("copies all plugin entry points without tests or repository metadata", async () => {
     const directory = await temporaryDirectory();
+    await symlink(
+      join(sourceRoot, "node_modules"),
+      join(directory, "node_modules"),
+    );
     const destination = join(directory, "rules");
     const entries = await copyRules(destination, { sourceRoot });
 
@@ -97,6 +101,12 @@ describe("copyRules", () => {
       ).size,
     ).toBe(0);
     expect(Bun.file(join(destination, "upstream/anti-slop/.git")).size).toBe(0);
+
+    for (const plugin of ["generic/index.ts", "effect/index.ts"]) {
+      const copied = await import(join(destination, plugin));
+      expect(Object.keys(copied.default.rules).length).toBeGreaterThan(0);
+    }
+
     expect(entries.antiSlop).toEndWith("/rules/upstream/anti-slop/index.ts");
     expect(entries.timmo).toEndWith("/rules/generic/index.ts");
   });

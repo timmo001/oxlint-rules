@@ -1,4 +1,4 @@
-import { cp, mkdir, readdir, rm } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -78,6 +78,12 @@ export async function copyRules(
   await cp(join(root, "LICENSE"), join(target, "effect/LICENSE"));
   await copyTree(join(root, "src/generic"), join(target, "generic"));
   await cp(join(root, "LICENSE"), join(target, "generic/LICENSE"));
+  await copyTree(join(root, "src/shared"), join(target, "shared"));
+  await cp(join(root, "LICENSE"), join(target, "shared/LICENSE"));
+  await writeFile(
+    join(target, "shared/scope.ts"),
+    `export { resolveVariable } from "../upstream/anti-slop/shared/scope.ts";\n`,
+  );
 
   const displayRoot = relative(process.cwd(), target) || ".";
   const entryPoint = (path: string) => `./${path.split(sep).join("/")}`;

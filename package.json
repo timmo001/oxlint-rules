@@ -25,6 +25,8 @@
     "src/generic",
     "!src/generic/**/*.test.ts",
     "!src/effect/**/*.test.ts",
+    "src/shared",
+    "!src/shared/**/*.test.ts",
     "vendor/anti-slop/src",
     "vendor/anti-slop/LICENSE",
     "!vendor/anti-slop/src/**/*.test.ts",
