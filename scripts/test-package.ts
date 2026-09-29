@@ -104,6 +104,10 @@ try {
 export function handle(event: Event) {
   return (event.currentTarget as HTMLInputElement).value;
 }
+
+export function changed(event: CustomEvent) {
+  return event.type;
+}
 `,
   );
   await writeFile(
@@ -144,6 +148,7 @@ export default { extends: [recommended] };
     const generic = run(consumer, "node", [...args, "generic.ts"], 1);
     assert.match(generic, /anti-slop\(no-array-filter-map\)/u);
     assert.match(generic, /timmo\(prefer-event-parameter-type\)/u);
+    assert.match(generic, /timmo\(no-untyped-custom-event\)/u);
 
     if (config === "recommended-effect") {
       const effect = run(consumer, "node", [...args, "effect.ts"], 1);

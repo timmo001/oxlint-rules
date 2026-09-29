@@ -81,6 +81,9 @@ explicit use.
 
 ### `timmo`
 
+- `no-untyped-custom-event`: reports `CustomEvent` used as a type without a
+  detail type, which leaves `detail` as `any`. Reuse the project's typed event
+  helper or add one.
 - `prefer-event-parameter-type`: reports assertions on a handler parameter's
   `target`, `currentTarget`, or `detail` (including nested `detail` members).
   Express the type in the function signature instead so every use sees the same
