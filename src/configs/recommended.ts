@@ -16,6 +16,10 @@ const recommended = defineConfig({
     ...enablePluginRules("anti-slop", antiSlopPlugin),
     ...enablePluginRules("timmo", timmoPlugin),
     "anti-slop/require-safety-comment-for-type-assertion": "off",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-unnecessary-type-arguments": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/no-unnecessary-type-parameters": "error",
   },
 });
 

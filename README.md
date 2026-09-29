@@ -79,6 +79,14 @@ The recommended configs disable
 `timmo/prefer-types-over-assertions`. The upstream rule remains available for
 explicit use.
 
+### Oxlint built-in rules
+
+The recommended configs also enable `typescript/no-non-null-assertion`,
+`typescript/no-unnecessary-type-arguments`,
+`typescript/no-unnecessary-type-assertion`, and
+`typescript/no-unnecessary-type-parameters`. The last three are type-aware, so
+they only run when the consumer enables `typeAware`.
+
 ### `timmo`
 
 - `no-explicit-inferable-type-predicate`: reports explicit `x is T` predicates on
