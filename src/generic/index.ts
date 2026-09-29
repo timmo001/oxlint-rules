@@ -1,6 +1,7 @@
 import { eslintCompatPlugin } from "@oxlint/plugins";
 
 import { noExplicitInferableTypePredicateRule } from "./rules/no-explicit-inferable-type-predicate.ts";
+import { noUncheckedQuerySelectorTypeRule } from "./rules/no-unchecked-query-selector-type.ts";
 import { noUntypedCustomEventRule } from "./rules/no-untyped-custom-event.ts";
 import { preferEventParameterTypeRule } from "./rules/prefer-event-parameter-type.ts";
 import { preferLitQueryDecoratorsRule } from "./rules/prefer-lit-query-decorators.ts";
@@ -11,6 +12,7 @@ const timmoPlugin = eslintCompatPlugin({
   rules: {
     "no-explicit-inferable-type-predicate":
       noExplicitInferableTypePredicateRule,
+    "no-unchecked-query-selector-type": noUncheckedQuerySelectorTypeRule,
     "no-untyped-custom-event": noUntypedCustomEventRule,
     "prefer-event-parameter-type": preferEventParameterTypeRule,
     "prefer-lit-query-decorators": preferLitQueryDecoratorsRule,

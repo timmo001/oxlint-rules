@@ -86,6 +86,11 @@ explicit use.
   `typeof` comparison, or an `instanceof` check. TypeScript 5.5 and later infer
   those predicates, and an explicit predicate is never checked against the
   body. Methods, exported functions, and `asserts` predicates are left alone.
+- `no-unchecked-query-selector-type`: reports type arguments on
+  `querySelector`, `querySelectorAll`, and `closest`, which cast the result
+  without checking it. Check the element with `instanceof`, use a checked lookup
+  helper, or query a tag name so TypeScript infers the type. Static render-root
+  queries in Lit elements are left to `prefer-lit-query-decorators`.
 - `no-untyped-custom-event`: reports `CustomEvent` used as a type without a
   detail type, which leaves `detail` as `any`. Reuse the project's typed event
   helper or add one.
