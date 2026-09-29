@@ -119,6 +119,11 @@ explicit use.
   form. It leaves ordinary async polling, nested callback boundaries,
   non-Effect generators, and `try/finally` cleanup alone. The rule is
   diagnostic-only because catch bodies cannot be rewritten safely in general.
+- `prefer-platform-services`: in modules that import `effect`, `effect/*`, or
+  `@effect/*`, reports Node `child_process` and `fs` imports and Bun's `spawn`,
+  `spawnSync`, `$`, `file`, and `write`. Use `ChildProcessSpawner` from
+  `effect/process` and the `FileSystem` service so cleanup, interruption, typed
+  failures, and test layers apply. `fetch` is not reported.
 
 ## Development
 

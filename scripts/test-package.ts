@@ -113,6 +113,7 @@ export function changed(event: CustomEvent) {
   await writeFile(
     join(consumer, "effect.ts"),
     `import { Effect } from "effect";
+import { readFileSync } from "node:fs";
 
 export const ready = { _tag: "Ready" };
 
@@ -160,6 +161,7 @@ export default { extends: [recommended] };
         effect,
         /timmo-effect\(no-try-catch-in-effect-generators\)/u,
       );
+      assert.match(effect, /timmo-effect\(prefer-platform-services\)/u);
     }
 
     const typedArgs = [
