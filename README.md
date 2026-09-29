@@ -93,6 +93,14 @@ explicit use.
   `target`, `currentTarget`, or `detail` (including nested `detail` members).
   Express the type in the function signature instead so every use sees the same
   contract.
+- `prefer-lit-query-decorators`: follows eslint-plugin-lit's
+  [`prefer-query-decorators`](https://github.com/43081j/eslint-plugin-lit/blob/master/docs/rules/prefer-query-decorators.md),
+  including its options and `settings.lit.elementBaseClasses`. It also catches
+  non-null, optional, and asserted render roots such as
+  `this.shadowRoot!.querySelector(...)`, and resolves `this` so nested classes
+  and plain functions are not reported. Only static selectors are reported,
+  because a query decorator cannot express a selector built at runtime. Turn
+  off `lit/prefer-query-decorators` when using this rule.
 - `prefer-types-over-assertions`: reports non-`const` TypeScript assertions,
   even when preceded by a `SAFETY:` comment. Type values where they enter the
   code, for example in function parameters or a checked DOM lookup helper that
