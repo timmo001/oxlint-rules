@@ -1,8 +1,8 @@
 import { defineRule } from "@oxlint/plugins";
 
-import type { ESTree } from "@oxlint/plugins";
+import { assertedEventParameter } from "./prefer-event-parameter-type.ts";
 
-type TypeAssertion = ESTree.TSAsExpression | ESTree.TSTypeAssertion;
+import type { TypeAssertion } from "../../shared/ast.ts";
 
 /** Prefer typing values at their source over asserting them at use sites. */
 export const preferTypesOverAssertionsRule = defineRule({
@@ -20,9 +20,10 @@ export const preferTypesOverAssertionsRule = defineRule({
   create(context) {
     const checkAssertion = (node: TypeAssertion) => {
       if (
-        node.typeAnnotation.type === "TSTypeReference" &&
-        node.typeAnnotation.typeName.type === "Identifier" &&
-        node.typeAnnotation.typeName.name === "const"
+        (node.typeAnnotation.type === "TSTypeReference" &&
+          node.typeAnnotation.typeName.type === "Identifier" &&
+          node.typeAnnotation.typeName.name === "const") ||
+        assertedEventParameter(node)
       ) {
         return;
       }

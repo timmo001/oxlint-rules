@@ -82,12 +82,14 @@ explicit use.
 ### `timmo`
 
 - `prefer-event-parameter-type`: reports assertions on a handler parameter's
-  `target` or `currentTarget`. Express the target type in the function signature
-  instead so every use sees the same contract.
+  `target`, `currentTarget`, or `detail` (including nested `detail` members).
+  Express the type in the function signature instead so every use sees the same
+  contract.
 - `prefer-types-over-assertions`: reports non-`const` TypeScript assertions,
   even when preceded by a `SAFETY:` comment. Type values where they enter the
   code, for example in function parameters or a checked DOM lookup helper that
-  returns `null` when the element is missing or has the wrong type.
+  returns `null` when the element is missing or has the wrong type. Assertions
+  that `prefer-event-parameter-type` reports are skipped here.
 
 ### `timmo-effect`
 

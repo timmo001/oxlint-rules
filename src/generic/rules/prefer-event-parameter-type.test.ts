@@ -24,6 +24,8 @@ tester.run("timmo/prefer-event-parameter-type", preferEventParameterTypeRule, {
           return callback;
         }
       `,
+    `function handle(ev: Event) { return (other.detail as string).length; }`,
+    `function handle(ev: MouseEvent) { return ev.target.value as string; }`,
   ],
   invalid: [
     {
@@ -39,6 +41,25 @@ tester.run("timmo/prefer-event-parameter-type", preferEventParameterTypeRule, {
       code: `
           const handle = (event: Event) =>
             (<HTMLElement>event.target).dataset.id;
+        `,
+      errors: [error],
+      output: null,
+    },
+    {
+      code: `
+          function handle(ev: CustomEvent) {
+            return ev.detail as { value: string };
+          }
+        `,
+      errors: [error],
+      output: null,
+    },
+    {
+      code: `
+          const handle = (ev: CustomEvent) => {
+            const value = ev.detail?.value as string;
+            return value;
+          };
         `,
       errors: [error],
       output: null,

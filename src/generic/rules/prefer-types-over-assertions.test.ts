@@ -17,6 +17,8 @@ tester.run(
       `function isString(value: unknown): value is string {
       return typeof value === "string";
     }`,
+      `function handle(ev: Event) { return (ev.currentTarget as HTMLInputElement).value; }`,
+      `function handle(ev: CustomEvent) { return ev.detail.value as string; }`,
     ],
     invalid: [
       {
