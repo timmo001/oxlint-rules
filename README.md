@@ -81,6 +81,11 @@ explicit use.
 
 ### `timmo`
 
+- `no-explicit-inferable-type-predicate`: reports explicit `x is T` predicates on
+  non-exported functions whose whole body is a null or `undefined` exclusion, a
+  `typeof` comparison, or an `instanceof` check. TypeScript 5.5 and later infer
+  those predicates, and an explicit predicate is never checked against the
+  body. Methods, exported functions, and `asserts` predicates are left alone.
 - `no-untyped-custom-event`: reports `CustomEvent` used as a type without a
   detail type, which leaves `detail` as `any`. Reuse the project's typed event
   helper or add one.
