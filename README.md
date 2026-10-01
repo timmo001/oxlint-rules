@@ -69,6 +69,19 @@ the package configs to merge into the target Oxlint config. Effect settings
 remain opt-in. It excludes tests and repository metadata, and refuses to
 replace an existing destination unless `--force` is passed.
 
+## Skills
+
+[`install-timmo-oxlint-rules`](skills/install-timmo-oxlint-rules/SKILL.md)
+guides agents through installing or copying these rules:
+
+```sh
+npx skills add timmo001/oxlint-rules --skill install-timmo-oxlint-rules
+```
+
+[`add-oxlint-rule`](skills/add-oxlint-rule/SKILL.md) and
+[`release-oxlint-rules`](skills/release-oxlint-rules/SKILL.md) are for
+maintaining this package.
+
 ## Rules
 
 ### `anti-slop` and `anti-slop-effect`

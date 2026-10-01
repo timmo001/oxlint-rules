@@ -1,0 +1,15 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "groupings": [
+    {
+      "title": "Use",
+      "description": "Install or copy the rules into a repository.",
+      "skills": ["install-timmo-oxlint-rules"]
+    },
+    {
+      "title": "Maintain",
+      "description": "Add rules to and release @timmo001/oxlint-rules.",
+      "skills": ["add-oxlint-rule", "release-oxlint-rules"]
+    }
+  ]
+}
