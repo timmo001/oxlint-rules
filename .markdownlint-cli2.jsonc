@@ -21,6 +21,7 @@
   "ignores": [
     "**/node_modules",
     "**/node_modules/**",
+    ".agents/skills/**",
     "vendor/anti-slop",
     "vendor/anti-slop/**"
   ]
