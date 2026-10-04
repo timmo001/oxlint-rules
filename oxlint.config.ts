@@ -6,6 +6,8 @@ export default defineConfig({
   extends: [recommendedEffect],
   options: {
     typeAware: true,
+    typeCheck: true,
+    maxWarnings: 0,
   },
   ignorePatterns: [
     ".agent/**",
