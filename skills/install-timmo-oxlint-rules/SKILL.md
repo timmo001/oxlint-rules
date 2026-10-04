@@ -32,10 +32,8 @@ description: >-
    instead only when `effect` is a direct dependency or the user explicitly
    requests it.
 4. Keep dependency and config edits visible. Do not delegate them to a script.
-5. For type-aware linting, explicitly pin the latest `oxlint-tsgolint` that
-   satisfies Oxlint's peer requirement and was validated with the rules release.
-   Enable `options.typeAware` in the target config and verify type-aware linting
-   alongside the shared rules.
+5. Explicitly pin the latest `oxlint-tsgolint` that satisfies Oxlint's peer
+   requirement and was validated with the rules release.
 
 ## Copy rules
 
@@ -51,8 +49,23 @@ description: >-
    output as authoritative rather than maintaining plugin or rule inventories
    in this skill.
 
+## Strictness
+
+1. Start with every strictness option in the target config's `options`:
+   `typeAware: true`, `typeCheck: true`, and `maxWarnings: 0`. Keep them in the
+   config rather than as lint script flags, and remove any existing
+   `--type-aware`, `--type-check`, `--deny-warnings`, or `--max-warnings` flags
+   so the config is the single source.
+2. Run the target's lint command. If it passes, keep every option.
+3. If it fails, group the failures by cause and the option that raises them,
+   then ask one structured question: fix the failures, or drop the smallest set
+   of options that makes lint pass (`typeCheck` first, then `maxWarnings`, then
+   `typeAware`). Recommend the reduction that keeps the most strictness, and name
+   any shared cause, such as a missing declaration in an upstream package, that
+   a follow-up could fix for every consumer.
+
 Run the target repository's lint command to verify the configuration loads, plus
 any checks explicitly required by that repository. Run typechecks, tests, or a
 build only when code or dependencies changed in a way those checks cover. Report
 package-manager changes, preserved local configuration, enabled rule groups,
-and checks.
+strictness options kept or dropped, and checks.
