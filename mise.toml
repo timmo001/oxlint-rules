@@ -14,9 +14,9 @@ depends = ["install"]
 run = "bun run test"
 
 [tasks.lint]
-description = "Build local plugins and lint maintained code"
-depends = ["install"]
-run = "bun run lint"
+description = "Lint maintained code against the fresh local plugin build"
+depends = ["build"]
+run = "bun run lint:oxlint"
 
 [tasks.typecheck]
 description = "Type-check package source"

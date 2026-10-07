@@ -152,8 +152,7 @@ Initialise the upstream source and run the package checks:
 
 ```sh
 git submodule update --init --recursive
-mise run check
-mise run build
+mise run check ::: build
 mise run test:package
 npm pack --dry-run
 bunx jsr@0.14.3 publish --dry-run --allow-dirty

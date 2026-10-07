@@ -38,11 +38,12 @@
   ],
   "scripts": {
     "build": "bun run scripts/build.ts",
-    "check": "bun run lint && bun run test && bun run typecheck && bun run format:check && bun run skills:validate",
+    "check": "bun run --parallel --no-exit-on-error lint test typecheck format:check skills:validate",
     "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
     "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
-    "lint": "bun run build && oxlint --disable-nested-config .",
-    "skills:validate": "bunx skills-ref validate skills/install-timmo-oxlint-rules && bunx skills-ref validate skills/add-oxlint-rule && bunx skills-ref validate skills/release-oxlint-rules",
+    "lint": "bun run build && bun run lint:oxlint",
+    "lint:oxlint": "oxlint --disable-nested-config .",
+    "skills:validate": "printf '%s\\n' skills/*/ | xargs -P 0 -n 1 skills-ref validate",
     "test": "node --experimental-strip-types scripts/test.ts",
     "test:package": "node --experimental-strip-types scripts/test-package.ts",
     "typecheck": "tsc --noEmit"
