@@ -30,6 +30,7 @@ tester.run("timmo-effect/no-raw-gh", noRawGhRule, {
       const error = { command: "gh" };
       const files = { json: (path) => path };
       files.json("package.json");
+      expect(command.command).toBe("gh");
     `,
     `
       import { Gh } from "@timmo001/effect-gh";

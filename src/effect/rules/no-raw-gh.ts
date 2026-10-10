@@ -61,11 +61,18 @@ function isGhBinding(
   );
 }
 
-function isGhArgument(node: ESTree.Node | undefined): boolean {
-  if (node?.type === "Literal") return node.value === "gh";
+/**
+ * Whether call arguments launch gh: `"gh"` followed by its argv, as in
+ * `run("gh", args)`, or an argv array starting with `"gh"`.
+ */
+function launchesGh(args: ESTree.CallExpression["arguments"]): boolean {
+  const [command, argv] = args;
 
-  if (node?.type !== "ArrayExpression") return false;
-  const first = node.elements[0];
+  if (command?.type === "Literal")
+    return command.value === "gh" && argv !== undefined;
+
+  if (command?.type !== "ArrayExpression") return false;
+  const first = command.elements[0];
 
   return first?.type === "Literal" && first.value === "gh";
 }
@@ -118,7 +125,7 @@ export const noRawGhRule = defineRule({
           }
         }
 
-        if (isGhArgument(node.arguments[0]))
+        if (launchesGh(node.arguments))
           context.report({ node, messageId: "spawnGh" });
       },
     };
