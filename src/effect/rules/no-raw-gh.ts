@@ -61,12 +61,23 @@ function isGhBinding(
   );
 }
 
+/** Callee names that take an argv array to launch, such as `Bun.spawn` or `execFileSync`. */
+const launcherName = /spawn|exec|run|command/i;
+
+function calleeName(callee: ESTree.Expression): string | null {
+  if (callee.type === "Identifier") return callee.name;
+
+  return staticMemberName(callee);
+}
+
 /**
- * Whether call arguments launch gh: `"gh"` followed by its argv, as in
- * `run("gh", args)`, or an argv array starting with `"gh"`.
+ * Whether a call launches gh: `"gh"` followed by its argv, as in
+ * `run("gh", args)`, or an argv array starting with `"gh"` passed to a
+ * spawn, exec, run or command function. Recording argv, as in
+ * `calls.push(["gh", ...args])`, is not launching it.
  */
-function launchesGh(args: ESTree.CallExpression["arguments"]): boolean {
-  const [command, argv] = args;
+function launchesGh(node: ESTree.CallExpression): boolean {
+  const [command, argv] = node.arguments;
 
   if (command?.type === "Literal")
     return command.value === "gh" && argv !== undefined;
@@ -74,7 +85,11 @@ function launchesGh(args: ESTree.CallExpression["arguments"]): boolean {
   if (command?.type !== "ArrayExpression") return false;
   const first = command.elements[0];
 
-  return first?.type === "Literal" && first.value === "gh";
+  return (
+    first?.type === "Literal" &&
+    first.value === "gh" &&
+    launcherName.test(calleeName(node.callee) ?? "")
+  );
 }
 
 /** Route gh through effect-gh's typed operations instead of raw argv or direct spawns. */
@@ -125,8 +140,7 @@ export const noRawGhRule = defineRule({
           }
         }
 
-        if (launchesGh(node.arguments))
-          context.report({ node, messageId: "spawnGh" });
+        if (launchesGh(node)) context.report({ node, messageId: "spawnGh" });
       },
     };
   },

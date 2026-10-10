@@ -138,8 +138,8 @@ they only run when the consumer enables `typeAware`.
 - `no-raw-gh`: reports the raw `execute`, `json` and `stream` methods called on
   a `yield* Gh` binding from `@timmo001/effect-gh`, `Api.raw` from that package,
   and calls that launch gh: `"gh"` followed by its arguments, such as
-  `executor.run("gh", ...)`, or an argument array starting with `"gh"`, such
-  as `Bun.spawn(["gh", ...])`. Use the
+  `executor.run("gh", ...)`, or an argument array starting with `"gh"` passed
+  to a spawn, exec, run or command function, such as `Bun.spawn(["gh", ...])`. Use the
   package's typed operations, and add one to effect-gh when a command has none.
   effect-gh's own relative imports are not reported.
 - `no-try-catch-in-effect-generators`: diagnoses synchronous `try/catch` owned

@@ -31,6 +31,8 @@ tester.run("timmo-effect/no-raw-gh", noRawGhRule, {
       const files = { json: (path) => path };
       files.json("package.json");
       expect(command.command).toBe("gh");
+      calls.push(["gh", ...args]);
+      expect(calls[0]).toEqual(["gh", "run", "watch"]);
     `,
     `
       import { Gh } from "@timmo001/effect-gh";
