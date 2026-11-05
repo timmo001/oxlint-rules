@@ -12,7 +12,8 @@
   filesystem paths or private configuration.
 - Apply the `release-oxlint-rules` skill for major, minor, patch, or exact
   version release requests.
-- Keep Oxlint support latest-only with matching exact development and peer pins.
+- Keep Oxlint and its plugins pinned exactly to the same latest version in
+  development dependencies, with caret peer ranges those pins satisfy.
   Validate toolchain updates against packed output with `mise run test:package`.
 - Run `mise run check`, `mise run build`, `mise run test:package`,
   `npm pack --dry-run`, and

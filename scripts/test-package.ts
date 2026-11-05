@@ -15,9 +15,15 @@ for (const dependency of [
 }
 
 for (const peer of ["oxlint", "@oxlint/plugins"] as const) {
-  assert.equal(
-    packageJson.peerDependencies[peer],
-    packageJson.devDependencies[peer],
+  const range = packageJson.peerDependencies[peer];
+  const floor = /^\^(\d+)\.(\d+)\.(\d+)$/u.exec(range)?.slice(1).map(Number);
+  const pinned = packageJson.devDependencies[peer].split(".").map(Number);
+  assert.ok(floor, `${peer} peer ${range} is not a caret range`);
+  assert.ok(
+    floor[0] === pinned[0] &&
+      (floor[1] < pinned[1] ||
+        (floor[1] === pinned[1] && floor[2] <= pinned[2])),
+    `${peer} ${packageJson.devDependencies[peer]} does not satisfy ${range}`,
   );
 }
 

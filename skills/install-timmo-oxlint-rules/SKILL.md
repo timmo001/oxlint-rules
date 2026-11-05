@@ -15,11 +15,11 @@ description: >-
    the user names another target.
 3. Preserve existing ignores, overrides, plugins, and repository-owned rules.
    Verify the official npm `latest` versions of `oxlint` and `@oxlint/plugins`.
-   They must match each other and the exact peers of the selected rules release.
-   Support is latest-only: if the published peer contract has not caught up,
-   report the pending rules release instead of widening peers or bypassing
-   package-manager failures. Do not force upgrades of Vite Plus's transitive
-   dependencies or assume its bundled plugins satisfy this contract.
+   They must match each other and satisfy the peer ranges of the selected rules
+   release. If they fall outside those ranges, report the pending rules release
+   instead of bypassing package-manager failures. Do not force upgrades of Vite
+   Plus's transitive dependencies or assume its bundled plugins satisfy this
+   contract.
 
 ## Package
 

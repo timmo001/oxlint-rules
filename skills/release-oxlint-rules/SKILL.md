@@ -18,12 +18,15 @@ description: >-
    minor, patch, or exact version. Ask only when the release level is missing.
    Do not add a `v` prefix when the repository's existing tags omit it.
 3. Verify official npm `latest` metadata for `oxlint`, `@oxlint/plugins` and
-   `oxlint-tsgolint`. Support is latest-only: keep Oxlint and plugins on the same
-   latest version, pin their development and peer dependencies exactly, and
-   select the latest tsgolint satisfying Oxlint's peer requirement. Regenerate
-   `bun.lock`. The shared Renovate preset groups this toolchain; the local rule
-   keeps peers pinned. Resolve compatibility failures before releasing, without
-   widening peers, disabling rules or forcing transitive dependency upgrades.
+   `oxlint-tsgolint`. Keep Oxlint and plugins on the same latest version, pinned
+   exactly in development dependencies, and select the latest tsgolint
+   satisfying Oxlint's peer requirement. Declare the peers as a caret range
+   (`^1.91.0`) so consumers can move to newer Oxlint releases without waiting
+   for a release here; raise its floor only when the rules need a newer Oxlint.
+   Regenerate `bun.lock`. The shared Renovate preset groups this toolchain and
+   widens peer ranges; the local rule pins only the development dependencies.
+   Resolve compatibility failures before releasing, without disabling rules or
+   forcing transitive dependency upgrades.
 4. Update the version in `package.json` and `jsr.json` only when a version bump
    is requested. Before committing, run `mise run check`, `mise run build`,
    `mise run test:package`, `npm pack --dry-run`, and
@@ -45,6 +48,4 @@ description: >-
    succeed.
 8. Report the release URL, version commit, validation results, and npm and JSR
    publication conclusions. Do not report the release as complete while either
-   publication job is pending or failed. A merged toolchain update alone does
-   not deliver its peer contract to consumers; preparation ends with publication
-   pending until a version bump and release are approved.
+   publication job is pending or failed.

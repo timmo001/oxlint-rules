@@ -7,19 +7,19 @@ locally owned generic rules under `timmo` and Effect rules under
 
 This package targets the latest stable Oxlint toolchain. Oxlint's
 [JavaScript plugin API is alpha](https://oxc.rs/docs/guide/usage/linter/config.html)
-and is outside its semver guarantees, so each rules release declares the exact
-`oxlint` and `@oxlint/plugins` versions it has validated. Older toolchains and
-untested future versions are not part of the support contract.
+and is outside its semver guarantees. Each rules release is validated against
+the Oxlint version pinned in its development dependencies, and declares a caret
+peer range from that version so consumers can take newer Oxlint releases
+without waiting for a rules release. Older toolchains are not supported.
 
 ## Install
 
-Check the published rules package's `peerDependencies` against the official npm
-`latest` versions of `oxlint` and `@oxlint/plugins`. If they differ, a validated
-rules release is needed before upgrading. Do not bypass peer checks or override
-Vite Plus's bundled dependencies to make an unsupported version fit.
+Check that the official npm `latest` versions of `oxlint` and `@oxlint/plugins`
+satisfy the published rules package's `peerDependencies`. Do not bypass peer
+checks or override Vite Plus's bundled dependencies to make an unsupported
+version fit.
 
-Once the versions match, install from npm with the package manager already used
-by the repository:
+Install from npm with the package manager already used by the repository:
 
 ```sh
 bun add --dev --exact @timmo001/oxlint-rules oxlint @oxlint/plugins
@@ -182,24 +182,25 @@ the surrounding test code is linted with the full rule set.
 isolated consumer using the exact toolchain pins from `package.json` and strict
 peer checks. It verifies both recommended configs, diagnostics from all four
 shared namespaces, and valid and invalid type-aware examples. CI runs this
-through the existing package workflow's build step. It also requires matching,
-exact Oxlint development and peer versions.
+through the existing package workflow's build step. It also requires exact
+Oxlint development versions that satisfy the caret peer ranges.
 
 ### Toolchain updates and releases
 
-Renovate's shared preset groups Oxlint, `@oxlint/plugins` and `oxlint-tsgolint`.
-The local rule keeps both development and peer dependencies pinned instead of
-widening peer ranges. For each update:
+Renovate's shared preset groups Oxlint, `@oxlint/plugins` and `oxlint-tsgolint`
+and widens peer ranges. The local rule keeps the development dependencies
+pinned. For each update:
 
 1. Verify the official npm `latest` versions and Oxlint's tsgolint peer
    requirement. Keep Oxlint and plugins on the same latest version and regenerate
    the lockfile with the selected tsgolint version.
 2. Run the checks and package dry-runs above. Fix any API incompatibility before
    accepting the new pins; do not disable rules or bypass peer failures.
-3. Review and merge the validated update. Consumers need a separately approved
-   version bump and release to receive the new peer contract. Publishing a
-   GitHub release triggers the existing npm and JSR workflows; both must succeed
-   before the update is available to consumers.
+3. Review and merge the validated update. Consumers already in the peer range
+   don't need a rules release; raise the peer floor and release only when the
+   rules need a newer Oxlint. Publishing a GitHub release triggers the existing
+   npm and JSR workflows; both must succeed before the update is available to
+   consumers.
 
 Advance `vendor/anti-slop` only by updating its Git submodule commit. Keep its
 source and MIT licence unchanged, then run the full package checks so both
