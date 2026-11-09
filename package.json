@@ -16,8 +16,14 @@
     "./upstream/effect": "./dist/upstream/effect.js",
     "./generic": "./dist/generic/index.js",
     "./effect": "./dist/effect/index.js",
-    "./configs/recommended": "./dist/configs/recommended.js",
-    "./configs/recommended-effect": "./dist/configs/recommended-effect.js"
+    "./configs/recommended": {
+      "types": "./dist/configs/recommended.d.ts",
+      "default": "./dist/configs/recommended.js"
+    },
+    "./configs/recommended-effect": {
+      "types": "./dist/configs/recommended-effect.d.ts",
+      "default": "./dist/configs/recommended-effect.js"
+    }
   },
   "files": [
     "dist",

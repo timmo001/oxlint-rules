@@ -16,6 +16,7 @@
       "dist/generic/index.js",
       "dist/effect/index.js",
       "dist/configs/*.js",
+      "dist/configs/*.d.ts",
       "src/jsr/**/*.ts",
       "vendor/anti-slop/LICENSE",
       "vendor/anti-slop/src/vendor/eslint-stylistic/LICENSE",

@@ -25,4 +25,18 @@ if (!result.success) {
   process.exitCode = 1;
 } else {
   await chmod("dist/cli.js", 0o755);
+
+  // Consumers' oxlint.config.ts imports these, so type-checked lint needs them.
+  const configDeclaration = `import type { OxlintConfig } from "oxlint";
+
+declare const config: OxlintConfig;
+
+export default config;
+`;
+
+  await Promise.all(
+    ["recommended", "recommended-effect"].map((name) =>
+      Bun.write(`dist/configs/${name}.d.ts`, configDeclaration),
+    ),
+  );
 }

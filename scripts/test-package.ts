@@ -94,7 +94,13 @@ try {
     join(consumer, "tsconfig.json"),
     JSON.stringify({
       compilerOptions: { strict: true, target: "ES2022", module: "NodeNext" },
-      include: ["assertion.ts", "generic.ts", "type-aware.ts", "valid.ts"],
+      include: [
+        "assertion.ts",
+        "generic.ts",
+        "oxlint.config.ts",
+        "type-aware.ts",
+        "valid.ts",
+      ],
     }),
   );
   await writeFile(join(consumer, "valid.ts"), "void Promise.resolve(1);\n");
@@ -133,6 +139,7 @@ export const task = Effect.gen(function* () {
     await writeFile(
       join(consumer, "oxlint.config.ts"),
       `import recommended from "@timmo001/oxlint-rules/configs/${config}";
+
 export default { extends: [recommended] };
 `,
     );
@@ -144,6 +151,13 @@ export default { extends: [recommended] };
       "--format",
       "json",
     ];
+
+    run(consumer, "node", [
+      ...args,
+      "--type-aware",
+      "--type-check",
+      "oxlint.config.ts",
+    ]);
 
     run(consumer, "node", [...args, "valid.ts"]);
     const assertion = run(consumer, "node", [...args, "assertion.ts"], 1);
