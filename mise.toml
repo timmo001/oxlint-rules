@@ -19,8 +19,8 @@ depends = ["build"]
 run = "bun run lint:oxlint"
 
 [tasks.typecheck]
-description = "Type-check package source"
-depends = ["install"]
+description = "Type-check package source against the built package"
+depends = ["build"]
 run = "bun run typecheck"
 
 [tasks."format:check"]

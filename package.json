@@ -44,7 +44,7 @@
   ],
   "scripts": {
     "build": "bun run scripts/build.ts",
-    "check": "bun run --parallel --no-exit-on-error lint test typecheck format:check skills:validate",
+    "check": "bun run build && bun run --parallel --no-exit-on-error lint:oxlint test typecheck format:check skills:validate",
     "format": "prettier --write \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
     "format:check": "prettier --check \"{src,scripts}/**/*.ts\" \"skills/**/*.{md,mjs}\" \"*.ts\" \"*.md\" \"*.json\"",
     "lint": "bun run build && bun run lint:oxlint",
