@@ -1,0 +1,5 @@
+// Pre-push checks: the shared base from timmo001/workflows, which runs the
+// Markdown, YAML, Actions, ShellCheck and Oxlint lints CI runs. Tests, types
+// and the package build are left to CI and `mise run check`. Run them by hand
+// with `hk check`.
+amends "package://github.com/timmo001/workflows/releases/download/20261114.0/hk-base@20261114.0.0#/base.pkl"

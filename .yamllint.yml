@@ -1,0 +1,6 @@
+---
+extends: default
+
+# mise writes the npm tool's aube lock here; it is generated, not hand-written.
+ignore: |
+  .mise/
