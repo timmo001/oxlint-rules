@@ -1,5 +1,6 @@
 import { eslintCompatPlugin } from "@oxlint/plugins";
 
+import { noDisabledTypeAssertionRulesRule } from "./rules/no-disabled-type-assertion-rules.ts";
 import { noExplicitInferableTypePredicateRule } from "./rules/no-explicit-inferable-type-predicate.ts";
 import { noUncheckedQuerySelectorTypeRule } from "./rules/no-unchecked-query-selector-type.ts";
 import { noUntypedCustomEventRule } from "./rules/no-untyped-custom-event.ts";
@@ -10,6 +11,7 @@ import { preferTypesOverAssertionsRule } from "./rules/prefer-types-over-asserti
 const timmoPlugin = eslintCompatPlugin({
   meta: { name: "timmo" },
   rules: {
+    "no-disabled-type-assertion-rules": noDisabledTypeAssertionRulesRule,
     "no-explicit-inferable-type-predicate":
       noExplicitInferableTypePredicateRule,
     "no-unchecked-query-selector-type": noUncheckedQuerySelectorTypeRule,
