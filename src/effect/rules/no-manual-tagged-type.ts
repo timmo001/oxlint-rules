@@ -40,7 +40,7 @@ export const noManualTaggedTypeRule = defineRule({
     },
     messages: {
       manualTaggedType:
-        "Do not declare `_tag` by hand. Define the value with Schema.TaggedStruct, Schema.TaggedClass, Schema.TaggedError, Schema.TaggedUnion, Data.TaggedClass, Data.TaggedError, or Data.taggedEnum, then infer the type from it, e.g. `export type X = typeof X.Type`.",
+        "Do not declare `_tag` by hand. Define the value with Schema.TaggedStruct, Schema.TaggedClass, Schema.TaggedError, Schema.TaggedUnion, Data.TaggedClass, Data.TaggedError, then infer the type from it, e.g. `export type X = typeof X.Type`. For a Data.taggedEnum, declare the union as `Data.TaggedEnum<{ Ready: {...}; Done: {...} }>`.",
     },
   },
   create(context) {
