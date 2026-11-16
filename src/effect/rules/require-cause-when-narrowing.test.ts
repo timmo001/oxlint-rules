@@ -48,7 +48,8 @@ tester.run(
       // A missing Option value has nothing worth keeping as a cause.
       `${imports}
       const a = Effect.fromOption(model).pipe(Effect.mapError(() => new MissingOption({ option: "model" })));
-      const b = Effect.mapError(Effect.fromNullable(file), () => new MissingFile());`,
+      const b = Effect.mapError(Effect.fromNullable(file), () => new MissingFile());
+      const c = Effect.fromNullishOr(blocks.get(query)).pipe(Effect.mapError(() => new MissingBlock()));`,
     ],
     invalid: [
       {

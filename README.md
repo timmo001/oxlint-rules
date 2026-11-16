@@ -188,7 +188,8 @@ they only run when the consumer enables `typeAware`.
   never reads the original error, when the new error has no `cause`. Pass the
   original as `cause`, or log it first with an earlier `Effect.tapError`,
   `tapErrorCause`, `tapCause` or `tapErrorTag` step. A step straight after
-  `Effect.fromOption` or `Effect.fromNullable` is left alone, since their
+  `Effect.fromOption`, `Effect.fromNullishOr` or `Effect.fromNullable` is left
+  alone, since their
   `NoSuchElementError` has nothing worth keeping.
 
 The `no-disabled-type-assertion-rules`, `no-manual-tagged-type`,

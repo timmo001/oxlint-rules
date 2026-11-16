@@ -36,6 +36,7 @@ const tapOperators: ReadonlySet<string> = new Set([
 
 const emptyFailureSources: ReadonlySet<string> = new Set([
   "fromNullable",
+  "fromNullishOr",
   "fromOption",
 ]);
 
@@ -203,7 +204,8 @@ function isTapStep(node: ESTree.Node, names: EffectModuleNames): boolean {
 }
 
 /**
- * Whether the narrowed effect comes straight from `Effect.fromOption` or `Effect.fromNullable`, whose
+ * Whether the narrowed effect comes straight from `Effect.fromOption`, `Effect.fromNullishOr` or
+ * `Effect.fromNullable`, whose
  * `NoSuchElementError` has nothing worth keeping as a cause.
  */
 function failsWithoutDetail(
