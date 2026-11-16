@@ -84,6 +84,10 @@ export async function copyRules(
     join(target, "shared/scope.ts"),
     `export { resolveVariable } from "../upstream/anti-slop/shared/scope.ts";\n`,
   );
+  await writeFile(
+    join(target, "shared/tagged-values.ts"),
+    `export { isInsideBroadEffectHandler } from "../upstream/effect/shared/tagged-values.ts";\n`,
+  );
 
   const displayRoot = relative(process.cwd(), target) || ".";
   const entryPoint = (path: string) => `./${path.split(sep).join("/")}`;

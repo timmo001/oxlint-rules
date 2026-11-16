@@ -4,6 +4,21 @@ export type FunctionNode = ESTree.Function | ESTree.ArrowFunctionExpression;
 
 export type TypeAssertion = ESTree.TSAsExpression | ESTree.TSTypeAssertion;
 
+export function isFunction(
+  node: ESTree.Node | null | undefined,
+): node is FunctionNode {
+  return (
+    node?.type === "ArrowFunctionExpression" ||
+    node?.type === "FunctionExpression" ||
+    node?.type === "FunctionDeclaration"
+  );
+}
+
+/** Whether the file is a `*.test.*` or `*.spec.*` file. */
+export function isTestFile(filename: string): boolean {
+  return /\.(?:test|spec)\.[cm]?[jt]sx?$/u.test(filename);
+}
+
 export function nearestEnclosingFunction(
   node: ESTree.Node,
 ): FunctionNode | null {
