@@ -102,6 +102,18 @@ they only run when the consumer enables `typeAware`.
 
 ### `timmo`
 
+- `no-disabled-type-assertion-rules`: reports inline `oxlint-disable` and
+  `eslint-disable` comments that turn off a type-assertion rule, and disable
+  comments that name no rule at all, since those switch the assertion rules off
+  too. The list covers the upstream assertion rules,
+  `effecttsgo/unsafe-effect-type-assertion`, `typescript/consistent-type-assertions`,
+  `typescript/no-unsafe-type-assertion`, `typescript/no-non-null-assertion`,
+  `prefer-types-over-assertions`, `prefer-event-parameter-type` and
+  `no-unchecked-query-selector-type`. Add more with the `additionalRules`
+  option. Put a needed exception in a lint config override with its reason,
+  and add generated files to `ignorePatterns`. Oxlint applies a bare
+  `/* eslint-disable */` or `// eslint-disable-line` to this rule as well, so
+  only bare `-next-line` comments can be reported.
 - `no-explicit-inferable-type-predicate`: reports explicit `x is T` predicates on
   non-exported functions whose whole body is a null or `undefined` exclusion, a
   `typeof` comparison, or an `instanceof` check. TypeScript 5.5 and later infer
@@ -135,6 +147,19 @@ they only run when the consumer enables `typeAware`.
 
 ### `timmo-effect`
 
+- `no-manual-tagged-type`: reports `_tag` declared as a fixed string, such as
+  `"Ready"` or `"Ready" | "Done"`, in a type or interface. Define the value with
+  a tagged Schema or Data constructor and infer the type from it. `_tag: string`
+  constraints that read the tag off an existing value, `Extract` and `Exclude`
+  filters that pick members of an existing union, and test files are left
+  alone.
+- `no-ordie-in-service-construction`: reports `Effect.orDie` and
+  `Effect.orDieWith` while a service is being constructed (a
+  `Context.Service` class's `make` or static `layer` members, or the effect
+  passed to `Layer.effect`, `Layer.scoped` or `Layer.unwrap*`), and
+  `Layer.orDie` anywhere. Operations the service returns, `Effect.fn`
+  definitions and test files are left alone. Keep construction failures in the
+  layer's error channel instead.
 - `no-raw-gh`: reports the raw `execute`, `json` and `stream` methods called on
   a `yield* Gh` binding from `@timmo001/effect-gh`, `Api.raw` from that package,
   and calls that launch gh: `"gh"` followed by its arguments, such as
@@ -153,6 +178,23 @@ they only run when the consumer enables `typeAware`.
   `spawnSync`, `$`, `file`, and `write`. Use `ChildProcessSpawner` from
   `effect/process` and the `FileSystem` service so cleanup, interruption, typed
   failures, and test layers apply. `fetch` is not reported.
+- `prefer-tagged-error-handling`: reports `Predicate.isTagged` checks inside a
+  broad `Effect.catch`, `catchAll` or `catchIf` handler. Use `Effect.catchTag`
+  or `catchTags`, or `catchReason` or `catchReasons` when checking the error's
+  `reason`. It complements the upstream `no-manual-effect-error-tag`, which
+  covers `_tag` comparisons.
+- `require-cause-when-narrowing`: reports errors constructed in an
+  `Effect.mapError`, `catch`, `catchAll`, `catchCause` or `orElse` handler that
+  never reads the original error, when the new error has no `cause`. Pass the
+  original as `cause`, or log it first with an earlier `Effect.tapError`,
+  `tapErrorCause`, `tapCause` or `tapErrorTag` step. A step straight after
+  `Effect.fromOption` or `Effect.fromNullable` is left alone, since their
+  `NoSuchElementError` has nothing worth keeping.
+
+The `no-disabled-type-assertion-rules`, `no-manual-tagged-type`,
+`no-ordie-in-service-construction`, `prefer-tagged-error-handling` and
+`require-cause-when-narrowing` rules are adapted from
+[`K-Mistele/anti-slop`](https://github.com/K-Mistele/anti-slop).
 
 ## Development
 
