@@ -19,6 +19,6 @@ permissions:
 jobs:
   package:
     # yamllint disable-line rule:line-length
-    uses: timmo001/workflows/.github/workflows/build-bun-package.yml@db6f3692a31de24d2bee17e505dfd2bf3fd5a076 # 20261116.1
+    uses: timmo001/workflows/.github/workflows/build-bun-package.yml@5ca45f8d789b67b2c3c14aea6062a379d6c37db1 # 20261123.0
     with:
       build-command: bun run test:package
